@@ -2,4 +2,4 @@
 
 Cloudflare deployment configured.
 
-forge design v1 deploymebt test
+forge design v1 deployment test
