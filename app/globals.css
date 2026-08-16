@@ -1,7 +1,13 @@
-app/
-├── dashboard/
-├── login/
-├── submit/
-├── globals.css     ← NEW FILE
-├── layout.tsx
-└── page.tsx
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #ffffff;
+  color: #111827;
+}
