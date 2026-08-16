@@ -2,12 +2,126 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --forge-forest: #102c24;
+  --forge-forest-deep: #081a16;
+  --forge-bronze: #b9864a;
+  --forge-ivory: #f6f4ee;
+  --forge-stone: #8c8b86;
+  --forge-charcoal: #111311;
+}
+
 html {
   scroll-behavior: smooth;
+  background: var(--forge-ivory);
 }
 
 body {
   margin: 0;
-  background: #ffffff;
-  color: #111827;
+  background: var(--forge-ivory);
+  color: var(--forge-charcoal);
+  font-family: Inter, Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: var(--forge-bronze);
+  color: var(--forge-forest-deep);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid var(--forge-bronze);
+  outline-offset: 3px;
+}
+
+/* Forge editorial typography */
+
+.forge-display {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 0.98;
+}
+
+.forge-heading {
+  font-family: "Source Serif 4", Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.018em;
+  line-height: 1.05;
+}
+
+.forge-eyebrow {
+  font-family: Inter, Arial, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--forge-bronze);
+}
+
+/* Shared Forge layout */
+
+.forge-container {
+  width: min(100% - 40px, 1280px);
+  margin-inline: auto;
+}
+
+.forge-section {
+  padding-block: clamp(4rem, 8vw, 7.5rem);
+}
+
+/* Subtle structural line language */
+
+.forge-rule {
+  width: 2rem;
+  height: 2px;
+  background: var(--forge-bronze);
+}
+
+.forge-border {
+  border-color: rgba(185, 134, 74, 0.35);
+}
+
+@media (min-width: 768px) {
+  .forge-container {
+    width: min(100% - 64px, 1280px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
