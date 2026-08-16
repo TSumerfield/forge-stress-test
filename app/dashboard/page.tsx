@@ -1,131 +1,157 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { supabase } from '@/lib/supabaseClient';
-import { supabaseAdmin } from '@/lib/supabaseClient';
+
+type Decision = {
+  id: string;
+  title: string;
+  decision: string;
+  deadline: string | null;
+  status: string;
+  created_at: string;
+};
 
 export default function Dashboard() {
-  const [password, setPassword] = useState('');
-  const [isAuthorized, setIsAuthorized] = useState(false);
-  const [submissions, setSubmissions] = useState<any[]>([]);
+  const router = useRouter();
+
+  const [decisions, setDecisions] = useState<Decision[]>([]);
   const [loading, setLoading] = useState(true);
+  const [email, setEmail] = useState<string | null>(null);
 
-  // --- PASSWORD CHECK ---
-  if (!isAuthorized) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-        <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-sm">
-          <h1 className="text-xl font-bold mb-4 text-center">Admin Access</h1>
-          <input 
-            type="password" 
-            placeholder="Enter password" 
-            className="border p-3 rounded w-full mb-4 text-lg"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button 
-            className="bg-blue-600 text-white w-full py-3 rounded font-bold"
-            onClick={() => {
-              // CHANGE THIS PASSWORD TO WHATEVER YOU WANT
-              if (password === 'forge123') {
-                setIsAuthorized(true);
-              } else {
-                alert('Wrong password');
-              }
-            }}
-          >
-            Login
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  // --- DASHBOARD LOGIC (only runs if password is correct) ---
   useEffect(() => {
-    fetchSubmissions();
+    loadDashboard();
   }, []);
 
-  async function fetchSubmissions() {
-    const { data, error } = await supabase
-      .from('submissions')
-      .select('*')
-      .order('created_at', { ascending: false });
-    if (!error) setSubmissions(data);
-    setLoading(false);
-  }
+  async function loadDashboard() {
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser();
 
-  async function handleReportUpload(submissionId: string, file: File, verdict: string) {
-    if (!file) return;
-    
-    const filePath = `${submissionId}/${file.name}`;
-    const { error: uploadError } = await supabaseAdmin.storage
-      .from('forge_reports')
-      .upload(filePath, file);
-
-    if (uploadError) {
-      alert('Upload failed');
+    if (userError || !user) {
+      router.push('/login');
       return;
     }
 
-    const { data: urlData } = supabaseAdmin.storage
-      .from('forge_reports')
-      .getPublicUrl(filePath);
+    setEmail(user.email ?? null);
 
-    await supabase
-      .from('submissions')
-      .update({ 
-        status: 'report_sent', 
-        report_file_url: urlData.publicUrl,
-        verdict: verdict 
-      })
-      .eq('id', submissionId);
+    const { data, error } = await supabase
+      .from('decision_intakes')
+      .select('id, title, decision, deadline, status, created_at')
+      .order('created_at', { ascending: false });
 
-    alert('Report uploaded! Status updated.');
-    fetchSubmissions();
+    if (error) {
+      console.error(error);
+    } else {
+      setDecisions(data || []);
+    }
+
+    setLoading(false);
   }
 
-  if (loading) return <div className="p-8">Loading...</div>;
+  async function handleSignOut() {
+    await supabase.auth.signOut();
+    router.push('/');
+  }
+
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-gray-50 p-8">
+        Loading...
+      </main>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-4">
-      <h1 className="text-3xl font-bold mb-6">Forge Admin</h1>
-      <div className="grid gap-6">
-        {submissions.map((sub) => (
-          <div key={sub.id} className="bg-white p-6 rounded-lg shadow-md border border-gray-200">
-            <div className="flex justify-between items-start">
-              <div>
-                <h2 className="font-bold text-xl">{sub.school_name || 'Unnamed School'}</h2>
-                <p className="text-sm text-gray-500">ID: {sub.engagement_id} | Status: <span className={`font-semibold ${sub.status === 'received' ? 'text-yellow-600' : 'text-green-600'}`}>{sub.status}</span></p>
-                <p className="mt-2"><strong>Decision:</strong> {sub.decision_question}</p>
-                <p className="text-sm text-gray-600 mt-1"><strong>Deadline:</strong> {sub.deadline}</p>
-                <details className="mt-2 text-sm">
-                  <summary className="cursor-pointer text-blue-600">View Full Context</summary>
-                  <pre className="bg-gray-50 p-3 rounded mt-2 whitespace-pre-wrap">{JSON.stringify(sub, null, 2)}</pre>
-                </details>
-              </div>
-              <div>
-                {sub.status !== 'report_sent' && (
-                  <div className="mt-4 border-t pt-4">
-                    <label className="block text-sm font-medium">Upload Final Report (PDF)</label>
-                    <input 
-                      type="file" 
-                      accept=".pdf"
-                      onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        const verdict = prompt('Enter verdict (PROCEED / MODIFY / DELAY / REJECT):');
-                        if (file && verdict) {
-                          handleReportUpload(sub.id, file, verdict);
-                        }
-                      }} 
-                      className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:bg-green-50 file:text-green-700 hover:file:bg-green-100"
-                    />
-                  </div>
-                )}
-              </div>
+    <main className="min-h-screen bg-gray-50">
+      <header className="bg-white border-b border-gray-200">
+        <div className="max-w-5xl mx-auto px-4 py-5 flex justify-between items-center">
+          <div>
+            <div className="font-bold text-xl">FORGE</div>
+            <div className="text-sm text-gray-500">
+              {email}
             </div>
           </div>
-        ))}
-      </div>
-    </div>
+
+          <button
+            onClick={handleSignOut}
+            className="text-sm font-medium text-gray-600 hover:text-gray-900"
+          >
+            Sign out
+          </button>
+        </div>
+      </header>
+
+      <section className="max-w-5xl mx-auto px-4 py-10">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+          <div>
+            <h1 className="text-3xl font-bold">
+              Your Decisions
+            </h1>
+            <p className="text-gray-500 mt-1">
+              Decisions submitted for independent stress testing.
+            </p>
+          </div>
+
+          <a
+            href="/submit"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-3 rounded-lg text-center"
+          >
+            New Decision
+          </a>
+        </div>
+
+        {decisions.length === 0 ? (
+          <div className="bg-white border border-gray-200 rounded-xl p-8">
+            <h2 className="font-bold text-xl mb-2">
+              No decisions yet
+            </h2>
+            <p className="text-gray-600 mb-5">
+              Submit your first consequential decision for review.
+            </p>
+
+            <a
+              href="/submit"
+              className="inline-block bg-gray-900 text-white font-semibold px-5 py-3 rounded-lg"
+            >
+              Start Decision Stress Test
+            </a>
+          </div>
+        ) : (
+          <div className="grid gap-4">
+            {decisions.map((decision) => (
+              <div
+                key={decision.id}
+                className="bg-white border border-gray-200 rounded-xl p-6"
+              >
+                <div className="flex flex-col sm:flex-row sm:justify-between gap-4">
+                  <div>
+                    <div className="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-2">
+                      {decision.status}
+                    </div>
+
+                    <h2 className="text-xl font-bold mb-2">
+                      {decision.title}
+                    </h2>
+
+                    <p className="text-gray-600">
+                      {decision.decision}
+                    </p>
+                  </div>
+
+                  <div className="text-sm text-gray-500 whitespace-nowrap">
+                    {decision.deadline
+                      ? `Deadline: ${decision.deadline}`
+                      : 'No deadline'}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </section>
+    </main>
   );
 }
