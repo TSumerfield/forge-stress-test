@@ -1,1009 +1,462 @@
-const KeystoneMark = ({ className = "" }: { className?: string }) => (
+"use client";
 
+import Link from "next/link";
+
+const Keystone = ({ className = "" }: { className?: string }) => (
   <svg
-
     viewBox="0 0 64 64"
-
-    aria-hidden="true"
-
-    className={className}
-
     fill="none"
-
     xmlns="http://www.w3.org/2000/svg"
-
+    className={className}
+    aria-hidden="true"
   >
-
     <path
-
-      d="M14 10H50L44 22H20L14 10Z"
-
-      fill="currentColor"
-
+      d="M16 8H48L56 24L32 56L8 24L16 8Z"
+      stroke="currentColor"
+      strokeWidth="2"
     />
-
     <path
-
-      d="M20 25H44L39 35H25L20 25Z"
-
-      fill="currentColor"
-
+      d="M16 8L32 56L48 8"
+      stroke="currentColor"
+      strokeWidth="2"
     />
-
-    <path
-
-      d="M25 38H39L34 54H30L25 38Z"
-
-      fill="currentColor"
-
-    />
-
+    <path d="M8 24H56" stroke="currentColor" strokeWidth="2" />
   </svg>
-
 );
 
 const Arrow = () => <span aria-hidden="true">→</span>;
 
 export default function Home() {
-
   return (
+    <main className="min-h-screen bg-[#f2efe8] text-[#111111]">
+      {/* NAV */}
+      <header className="border-b border-black/20">
+        <div className="mx-auto flex max-w-[1500px] items-center justify-between px-6 py-5 md:px-10 lg:px-14">
+          <Link
+            href="/"
+            className="flex items-center gap-3 text-sm font-semibold tracking-[0.18em]"
+          >
+            <Keystone className="h-7 w-7" />
+            <span>FORGE</span>
+          </Link>
 
-    <main className="min-h-screen bg-forge-ivory-100 text-forge-charcoal-900">
-
-      {/* HEADER */}
-
-      <header className="absolute inset-x-0 top-0 z-30">
-
-        <div className="forge-container flex h-24 items-center justify-between border-b border-white/10">
-
-          <a href="/" className="flex items-center gap-3 text-forge-ivory-100">
-
-            <KeystoneMark className="h-8 w-8 text-forge-bronze-500" />
-
-            <div className="leading-none">
-
-              <div className="text-lg font-semibold tracking-[0.22em]">FORGE</div>
-
-              <div className="mt-1 text-[8px] tracking-[0.18em] text-forge-ivory-100/55">
-
-                SPORTS LEADERSHIP INTELLIGENCE
-
-              </div>
-
-            </div>
-
-          </a>
-
-          <nav className="hidden items-center gap-8 text-[11px] font-medium uppercase tracking-[0.14em] text-forge-ivory-100/70 lg:flex">
-
-            <a href="#forge" className="transition hover:text-forge-bronze-400">
-
-              Forge
-
+          <nav className="hidden items-center gap-8 text-xs font-medium tracking-[0.14em] md:flex">
+            <a href="#method" className="transition-opacity hover:opacity-60">
+              METHOD
             </a>
-
             <a
-
               href="#intelligence"
-
-              className="transition hover:text-forge-bronze-400"
-
+              className="transition-opacity hover:opacity-60"
             >
-
-              Intelligence
-
+              INSIGHTS
             </a>
-
-            <a
-
-              href="#decision-review"
-
-              className="transition hover:text-forge-bronze-400"
-
-            >
-
-              Decision Review
-
+            <a href="#about" className="transition-opacity hover:opacity-60">
+              ABOUT
             </a>
-
-            <a href="#about" className="transition hover:text-forge-bronze-400">
-
-              About
-
-            </a>
-
-            <a
-
-              href="/submit"
-
-              className="border border-forge-bronze-500 px-5 py-3 text-forge-bronze-300 transition hover:bg-forge-bronze-500 hover:text-forge-forest-950"
-
-            >
-
-              Submit a Decision
-
-            </a>
-
           </nav>
 
-          <a
-
-            href="/submit"
-
-            className="border border-forge-bronze-500 px-4 py-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-forge-bronze-300 lg:hidden"
-
+          <Link
+            href="/stress-test"
+            className="border border-black px-4 py-3 text-[11px] font-semibold tracking-[0.12em] transition-colors hover:bg-black hover:text-[#f2efe8]"
           >
-
-            Submit
-
-          </a>
-
+            TAKE THE STRESS TEST <Arrow />
+          </Link>
         </div>
-
       </header>
 
       {/* HERO */}
+      <section className="border-b border-black/20">
+        <div className="mx-auto grid min-h-[78vh] max-w-[1500px] grid-cols-1 lg:grid-cols-12">
+          <div className="flex flex-col justify-between px-6 py-16 md:px-10 md:py-20 lg:col-span-9 lg:px-14 lg:py-24">
+            <div>
+              <p className="mb-8 text-xs font-semibold tracking-[0.18em]">
+                INDEPENDENT INTELLIGENCE FOR SCHOOL SPORT
+              </p>
 
-      <section className="relative overflow-hidden bg-forge-forest-950 text-forge-ivory-100">
-
-        <div className="absolute inset-0 opacity-20">
-
-          <div className="absolute left-[8%] top-0 h-full w-px bg-white/20" />
-
-          <div className="absolute left-[42%] top-0 hidden h-full w-px bg-white/10 md:block" />
-
-          <div className="absolute right-[8%] top-0 h-full w-px bg-white/20" />
-
-        </div>
-
-        <div className="forge-container relative grid min-h-[760px] items-end gap-12 pb-20 pt-40 lg:grid-cols-[1.02fr_0.98fr] lg:pb-24">
-
-          <div className="max-w-3xl">
-
-            <div className="forge-eyebrow mb-7">Sports Leadership Intelligence</div>
-
-            <h1 className="forge-display max-w-3xl text-[clamp(3.6rem,8vw,7.6rem)] text-forge-ivory-100">
-
-              The intelligence
-
-              <br />
-
-              behind better sport.
-
-            </h1>
-
-            <p className="mt-8 max-w-xl text-base leading-7 text-forge-ivory-100/68 md:text-lg">
-
-              Forge brings together evidence, independent judgement and
-
-              practical systems for leaders responsible for school sport.
-
-            </p>
-
-            <div className="mt-10 flex flex-wrap gap-4">
-
-              <a
-
-                href="#forge"
-
-                className="forge-button forge-button-primary"
-
-              >
-
-                Explore Forge
-
-              </a>
-
-              <a
-
-                href="#decision-review"
-
-                className="forge-button forge-button-secondary gap-3"
-
-              >
-
-                Decision Review <Arrow />
-
-              </a>
-
+              <h1 className="max-w-[1100px] text-[15vw] font-semibold uppercase leading-[0.82] tracking-[-0.07em] md:text-[10vw] lg:text-[8.4rem]">
+                Better sport
+                <br />
+                is built on
+                <br />
+                better systems.
+              </h1>
             </div>
 
-          </div>
+            <div className="mt-16 flex flex-col items-start gap-7 md:mt-24 md:flex-row md:items-end md:justify-between">
+              <p className="max-w-xl text-lg leading-relaxed md:text-xl">
+                Forge develops independent intelligence, tools and operating
+                frameworks for the people leading sport in international
+                schools.
+              </p>
 
-          <div className="relative hidden min-h-[500px] lg:block">
+              <div className="flex flex-wrap gap-3">
+                <Link
+                  href="/stress-test"
+                  className="bg-black px-6 py-4 text-xs font-semibold tracking-[0.14em] text-[#f2efe8] transition-opacity hover:opacity-75"
+                >
+                  TAKE THE STRESS TEST <Arrow />
+                </Link>
 
-            <div className="absolute inset-x-0 bottom-0 h-[82%] border border-forge-bronze-500/25 bg-forge-forest-900">
-
-              <div className="absolute inset-8 border border-forge-bronze-500/20" />
-
-              <div className="absolute bottom-[13%] left-[12%] h-[13%] w-[72%] border-l border-t border-forge-bronze-500/60" />
-
-              <div className="absolute bottom-[28%] left-[22%] h-[13%] w-[62%] border-l border-t border-forge-bronze-500/50" />
-
-              <div className="absolute bottom-[43%] left-[32%] h-[13%] w-[52%] border-l border-t border-forge-bronze-500/40" />
-
-              <div className="absolute bottom-[58%] left-[42%] h-[13%] w-[42%] border-l border-t border-forge-bronze-500/30" />
-
-              <div className="absolute right-[8%] top-[8%] text-right">
-
-                <div className="forge-eyebrow">Structure</div>
-
-                <p className="mt-2 max-w-[180px] text-xs leading-5 text-forge-ivory-100/45">
-
-                  Strong outcomes are shaped by what sits beneath them.
-
-                </p>
-
+                <a
+                  href="#forge"
+                  className="border border-black px-6 py-4 text-xs font-semibold tracking-[0.14em] transition-colors hover:bg-black hover:text-[#f2efe8]"
+                >
+                  EXPLORE FORGE ↓
+                </a>
               </div>
-
             </div>
-
           </div>
 
+          <div className="hidden items-center justify-center border-l border-black/20 lg:col-span-3 lg:flex">
+            <Keystone className="h-40 w-40 xl:h-52 xl:w-52" />
+          </div>
         </div>
-
       </section>
 
       {/* PROBLEM */}
-
-      <section id="forge" className="forge-section bg-forge-ivory-100">
-
-        <div className="forge-container">
-
-          <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
-
-            <div>
-
-              <div className="forge-eyebrow">The Problem</div>
-
-              <h2 className="forge-heading mt-6 text-5xl md:text-6xl">
-
-                School sport is complex.
-
-                <br />
-
-                Its knowledge infrastructure isn&apos;t.
-
-              </h2>
-
-            </div>
-
-            <div className="flex items-end">
-
-              <p className="max-w-2xl text-lg leading-8 text-forge-charcoal-900/68">
-
-                Sports leaders make hundreds of decisions across people,
-
-                programmes, competition, facilities, budgets and strategy. Yet
-
-                useful knowledge is often fragmented, decisions disappear into
-
-                memory, and departments repeatedly solve problems others have
-
-                already encountered.
-
-              </p>
-
-            </div>
-
-          </div>
-
-          <div className="mt-16 grid border-y border-forge-charcoal-900/12 md:grid-cols-2 lg:grid-cols-4">
-
-            {[
-
-              ["Knowledge", "Fragmented and hard to find."],
-
-              ["Decisions", "Often made with incomplete information."],
-
-              ["Memory", "Experience disappears when people leave."],
-
-              ["Repetition", "Departments repeatedly solve the same problems."],
-
-            ].map(([title, copy], index) => (
-
-              <div
-
-                key={title}
-
-                className={`px-0 py-8 md:px-8 ${
-
-                  index > 0 ? "border-t border-forge-charcoal-900/12 md:border-l md:border-t-0" : ""
-
-                }`}
-
-              >
-
-                <div className="mb-6 text-xs tracking-[0.14em] text-forge-bronze-600">
-
-                  0{index + 1}
-
-                </div>
-
-                <h3 className="forge-heading text-2xl">{title}</h3>
-
-                <p className="mt-3 text-sm leading-6 text-forge-charcoal-900/58">
-
-                  {copy}
-
-                </p>
-
-              </div>
-
-            ))}
-
-          </div>
-
-          <p className="mt-10 text-sm font-semibold uppercase tracking-[0.14em] text-forge-forest-800">
-
-            Forge exists to change that.
-
+      <section id="forge" className="border-b border-black/20">
+        <div className="mx-auto max-w-[1500px] px-6 py-20 md:px-10 md:py-28 lg:px-14 lg:py-36">
+          <p className="mb-10 text-xs font-semibold tracking-[0.18em]">
+            THE PROBLEM
           </p>
 
-        </div>
+          <h2 className="max-w-6xl text-5xl font-semibold uppercase leading-[0.92] tracking-[-0.05em] md:text-7xl lg:text-8xl">
+            Success can
+            <br />
+            hide fragility.
+          </h2>
 
+          <div className="mt-16 grid grid-cols-1 gap-10 border-t border-black/20 pt-10 md:grid-cols-2 lg:grid-cols-12">
+            <div className="lg:col-span-5">
+              <p className="text-xl leading-relaxed md:text-2xl">
+                Fixtures happen. Teams compete. Trips run. Parents get
+                informed.
+              </p>
+            </div>
+
+            <div className="lg:col-span-6 lg:col-start-7">
+              <p className="text-base leading-7 text-black/75 md:text-lg md:leading-8">
+                But underneath a successful programme, critical knowledge can
+                live in people&apos;s heads, leaders can become operational
+                bottlenecks, responsibilities can remain unclear, and constant
+                delivery can leave little capacity for improvement.
+              </p>
+
+              <p className="mt-6 text-base font-medium leading-7 md:text-lg">
+                Forge exists to make those systems visible, measurable and
+                better.
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* DOMAIN */}
-
-      <section className="forge-section bg-forge-forest-800 text-forge-ivory-100">
-
-        <div className="forge-container">
-
-          <div className="max-w-3xl">
-
-            <div className="forge-eyebrow">The Forge Domain</div>
-
-            <h2 className="forge-heading mt-6 text-5xl md:text-6xl">
-
-              Behind better sport.
-
-            </h2>
-
-          </div>
-
-          <div className="mt-16 grid border-t border-forge-bronze-500/30 lg:grid-cols-3">
-
-            {[
-
-              {
-
-                n: "01",
-
-                title: "Intelligence",
-
-                lead: "Make sense of what matters.",
-
-                copy:
-
-                  "Evidence, research and experience brought together to create clarity around the realities of leading sport.",
-
-              },
-
-              {
-
-                n: "02",
-
-                title: "Decisions",
-
-                lead: "Challenge what deserves challenging.",
-
-                copy:
-
-                  "Independent scrutiny for consequential choices before they become commitments.",
-
-              },
-
-              {
-
-                n: "03",
-
-                title: "Systems",
-
-                lead: "Make good practice survive.",
-
-                copy:
-
-                  "Structures, processes and institutional knowledge that become stronger through use.",
-
-              },
-
-            ].map((item, index) => (
-
-              <article
-
-                key={item.title}
-
-                className={`py-10 lg:px-10 ${
-
-                  index > 0
-
-                    ? "border-t border-forge-bronze-500/30 lg:border-l lg:border-t-0"
-
-                    : ""
-
-                }`}
-
-              >
-
-                <div className="text-xs tracking-[0.14em] text-forge-bronze-400">
-
-                  {item.n}
-
-                </div>
-
-                <h3 className="forge-heading mt-8 text-4xl">{item.title}</h3>
-
-                <p className="mt-5 font-medium text-forge-bronze-300">
-
-                  {item.lead}
-
-                </p>
-
-                <p className="mt-4 max-w-sm text-sm leading-7 text-forge-ivory-100/60">
-
-                  {item.copy}
-
-                </p>
-
-              </article>
-
-            ))}
-
-          </div>
-
-        </div>
-
-      </section>
-
-      {/* COMPOUNDING MODEL */}
-
-      <section className="border-y border-forge-charcoal-900/10 bg-forge-ivory-100 py-16">
-
-        <div className="forge-container">
-
-          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
-
-            <div>
-
-              <div className="forge-eyebrow">A Working Principle</div>
-
-              <h2 className="forge-heading mt-5 text-4xl md:text-5xl">
-
-                Every decision should leave the next leader better informed.
-
+      {/* STRESS TEST */}
+      <section className="border-b border-black/20 bg-black text-[#f2efe8]">
+        <div className="mx-auto max-w-[1500px] px-6 py-20 md:px-10 md:py-28 lg:px-14 lg:py-36">
+          <div className="grid grid-cols-1 gap-16 lg:grid-cols-12">
+            <div className="lg:col-span-3">
+              <p className="text-xs font-semibold tracking-[0.18em] text-white/60">
+                FORGE / 001
+              </p>
+            </div>
+
+            <div className="lg:col-span-9">
+              <h2 className="text-6xl font-semibold uppercase leading-[0.86] tracking-[-0.06em] md:text-8xl lg:text-[7.5rem]">
+                Sport
+                <br />
+                Department
+                <br />
+                Stress Test
               </h2>
 
-            </div>
+              <div className="mt-14 grid grid-cols-1 gap-10 border-t border-white/25 pt-10 md:grid-cols-2">
+                <div>
+                  <h3 className="text-2xl font-medium leading-tight md:text-3xl">
+                    How resilient is your sports department?
+                  </h3>
+                </div>
 
-            <div className="grid grid-cols-2 gap-px bg-forge-charcoal-900/10 md:grid-cols-4">
+                <div>
+                  <p className="text-base leading-7 text-white/70 md:text-lg md:leading-8">
+                    Discover where your department is resilient, where it is
+                    exposed, and what you should strengthen first.
+                  </p>
+                </div>
+              </div>
 
-              {["Intelligence", "Decisions", "Systems", "Learning"].map(
-
-                (label, index) => (
-
+              <div className="mt-14 grid grid-cols-2 border-l border-t border-white/25 md:grid-cols-3 lg:grid-cols-6">
+                {[
+                  "LEADERSHIP",
+                  "OPERATIONS",
+                  "OWNERSHIP",
+                  "COACHING",
+                  "KNOWLEDGE",
+                  "CAPACITY",
+                ].map((item) => (
                   <div
-
-                    key={label}
-
-                    className="bg-forge-ivory-100 px-5 py-7 text-center"
-
+                    key={item}
+                    className="border-b border-r border-white/25 px-4 py-7"
                   >
-
-                    <div className="text-[10px] tracking-[0.15em] text-forge-bronze-600">
-
-                      0{index + 1}
-
-                    </div>
-
-                    <div className="mt-3 text-xs font-semibold uppercase tracking-[0.12em]">
-
-                      {label}
-
-                    </div>
-
+                    <p className="text-[10px] font-semibold tracking-[0.14em] text-white/70">
+                      {item}
+                    </p>
                   </div>
+                ))}
+              </div>
 
-                )
+              <div className="mt-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+                <div className="flex flex-wrap gap-x-7 gap-y-2 text-xs font-medium tracking-[0.14em] text-white/65">
+                  <span>24 QUESTIONS</span>
+                  <span>10 MINUTES</span>
+                  <span>CONFIDENTIAL</span>
+                  <span>FREE</span>
+                </div>
 
-              )}
-
+                <Link
+                  href="/stress-test"
+                  className="inline-flex w-fit border border-[#f2efe8] px-6 py-4 text-xs font-semibold tracking-[0.14em] transition-colors hover:bg-[#f2efe8] hover:text-black"
+                >
+                  TAKE THE STRESS TEST <Arrow />
+                </Link>
+              </div>
             </div>
-
           </div>
-
         </div>
-
       </section>
 
-      {/* DECISION REVIEW */}
+      {/* WHAT FORGE DOES */}
+      <section id="about" className="border-b border-black/20">
+        <div className="mx-auto max-w-[1500px] px-6 py-20 md:px-10 md:py-28 lg:px-14 lg:py-36">
+          <p className="mb-10 text-xs font-semibold tracking-[0.18em]">
+            WHAT FORGE DOES
+          </p>
 
-      <section
+          <h2 className="max-w-5xl text-5xl font-semibold uppercase leading-[0.92] tracking-[-0.05em] md:text-7xl lg:text-8xl">
+            From experience
+            <br />
+            to intelligence.
+          </h2>
 
-        id="decision-review"
-
-        className="forge-section bg-forge-ivory-100"
-
-      >
-
-        <div className="forge-container grid gap-14 lg:grid-cols-[1fr_0.9fr] lg:items-center lg:gap-24">
-
-          <div>
-
-            <div className="forge-eyebrow">Currently at Forge</div>
-
-            <h2 className="forge-heading mt-6 text-5xl md:text-6xl">
-
-              Forge Decision Review
-
-            </h2>
-
-            <p className="mt-5 text-xl font-medium text-forge-forest-800">
-
-              Independent scrutiny before you commit.
-
-            </p>
-
-            <p className="mt-7 max-w-xl text-base leading-8 text-forge-charcoal-900/65">
-
-              Bring Forge a consequential decision. We examine the evidence,
-
-              challenge the assumptions, consider what may have been missed and
-
-              provide a clear recommendation before you commit.
-
-            </p>
-
-            <div className="mt-9 grid max-w-xl grid-cols-3 border-y border-forge-charcoal-900/10 py-5">
-
-              <div>
-
-                <div className="text-2xl font-semibold">£195</div>
-
-                <div className="mt-1 text-[10px] uppercase tracking-[0.12em] text-forge-charcoal-900/45">
-
-                  Founding review
-
-                </div>
-
-              </div>
-
-              <div>
-
-                <div className="text-2xl font-semibold">72h</div>
-
-                <div className="mt-1 text-[10px] uppercase tracking-[0.12em] text-forge-charcoal-900/45">
-
-                  Target
-
-                </div>
-
-              </div>
-
-              <div>
-
-                <div className="text-2xl font-semibold">3</div>
-
-                <div className="mt-1 text-[10px] uppercase tracking-[0.12em] text-forge-charcoal-900/45">
-
-                  Founding places
-
-                </div>
-
-              </div>
-
+          <div className="mt-16 grid grid-cols-1 border-l border-t border-black/20 md:grid-cols-3">
+            <div className="border-b border-r border-black/20 p-8 md:p-10">
+              <p className="mb-16 text-xs font-semibold tracking-[0.18em]">
+                01 / MEASURE
+              </p>
+              <p className="text-lg leading-8">
+                Structured diagnostics make invisible departmental strengths
+                and vulnerabilities measurable.
+              </p>
             </div>
 
-            <a
-
-              href="/submit"
-
-              className="mt-9 inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.14em] text-forge-forest-800"
-
-            >
-
-              Explore Decision Review <Arrow />
-
-            </a>
-
-          </div>
-
-          {/* Report mockup */}
-
-          <div className="relative mx-auto w-full max-w-[430px]">
-
-            <div className="absolute -left-7 -top-7 h-full w-full border border-forge-bronze-500/30" />
-
-            <div className="relative min-h-[560px] bg-forge-forest-950 p-8 text-forge-ivory-100 shadow-forge md:p-10">
-
-              <div className="flex items-start justify-between">
-
-                <KeystoneMark className="h-10 w-10 text-forge-bronze-500" />
-
-                <div className="text-right text-[9px] uppercase tracking-[0.15em] text-forge-ivory-100/45">
-
-                  Decision Review
-
-                  <br />
-
-                  Confidential
-
-                </div>
-
-              </div>
-
-              <div className="mt-28">
-
-                <div className="forge-eyebrow">Forge Decision Review</div>
-
-                <h3 className="forge-heading mt-5 text-4xl">
-
-                  Independent scrutiny before commitment.
-
-                </h3>
-
-                <div className="mt-12 border-t border-forge-bronze-500/40 pt-6">
-
-                  <div className="grid grid-cols-2 gap-6">
-
-                    <div>
-
-                      <div className="text-[9px] uppercase tracking-[0.14em] text-forge-ivory-100/40">
-
-                        Verdict
-
-                      </div>
-
-                      <div className="mt-2 text-lg text-forge-bronze-300">
-
-                        MODIFY
-
-                      </div>
-
-                    </div>
-
-                    <div>
-
-                      <div className="text-[9px] uppercase tracking-[0.14em] text-forge-ivory-100/40">
-
-                        Confidence
-
-                      </div>
-
-                      <div className="mt-2 text-lg">HIGH</div>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </div>
-
-              <div className="absolute bottom-8 left-8 right-8 flex items-end justify-between border-t border-white/10 pt-5">
-
-                <span className="text-[8px] uppercase tracking-[0.15em] text-white/35">
-
-                  Sports Leadership Intelligence
-
-                </span>
-
-                <span className="text-xs text-forge-bronze-400">FORGE</span>
-
-              </div>
-
+            <div className="border-b border-r border-black/20 p-8 md:p-10">
+              <p className="mb-16 text-xs font-semibold tracking-[0.18em]">
+                02 / UNDERSTAND
+              </p>
+              <p className="text-lg leading-8">
+                Forge identifies recurring patterns in how international-school
+                sports departments operate, where they struggle and what
+                creates resilience.
+              </p>
             </div>
 
+            <div className="border-b border-r border-black/20 p-8 md:p-10">
+              <p className="mb-16 text-xs font-semibold tracking-[0.18em]">
+                03 / IMPROVE
+              </p>
+              <p className="text-lg leading-8">
+                Those insights become practical frameworks, tools and
+                interventions designed to improve how sport is led and
+                operated.
+              </p>
+            </div>
           </div>
-
         </div>
+      </section>
 
+      {/* METHOD */}
+      <section id="method" className="border-b border-black/20">
+        <div className="mx-auto max-w-[1500px] px-6 py-20 md:px-10 md:py-28 lg:px-14 lg:py-36">
+          <p className="mb-10 text-xs font-semibold tracking-[0.18em]">
+            THE FORGE METHOD
+          </p>
+
+          <h2 className="max-w-6xl text-5xl font-semibold uppercase leading-[0.92] tracking-[-0.05em] md:text-7xl lg:text-8xl">
+            Don&apos;t treat
+            <br />
+            the symptom.
+            <br />
+            Find the system
+            <br />
+            causing it.
+          </h2>
+
+          <div className="mt-20 border-t border-black">
+            {[
+              ["01", "MEASURE", "What is actually happening?"],
+              ["02", "DIAGNOSE", "Where is the constraint?"],
+              [
+                "03",
+                "CHALLENGE",
+                "What assumptions or structures are maintaining it?",
+              ],
+              [
+                "04",
+                "REDESIGN",
+                "What is the smallest change capable of improving the system?",
+              ],
+              ["05", "MEASURE AGAIN", "Did it work?"],
+            ].map(([number, title, text]) => (
+              <div
+                key={number}
+                className="grid grid-cols-12 gap-4 border-b border-black/20 py-7 md:py-9"
+              >
+                <div className="col-span-2 text-xs font-semibold tracking-[0.14em] md:col-span-1">
+                  {number}
+                </div>
+
+                <div className="col-span-10 text-sm font-semibold tracking-[0.12em] md:col-span-3">
+                  {title}
+                </div>
+
+                <div className="col-span-10 col-start-3 mt-3 text-base text-black/65 md:col-span-7 md:col-start-auto md:mt-0 md:text-lg">
+                  {text}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* INTELLIGENCE */}
+      <section id="intelligence" className="border-b border-black/20">
+        <div className="mx-auto grid max-w-[1500px] grid-cols-1 lg:grid-cols-12">
+          <div className="px-6 py-20 md:px-10 md:py-28 lg:col-span-8 lg:px-14 lg:py-36">
+            <p className="mb-10 text-xs font-semibold tracking-[0.18em]">
+              WHAT WE&apos;RE BUILDING
+            </p>
 
-      <section
-
-        id="intelligence"
-
-        className="forge-section border-y border-forge-charcoal-900/10 bg-[#ede9df]"
-
-      >
-
-        <div className="forge-container">
-
-          <div className="grid gap-10 lg:grid-cols-[0.75fr_1.25fr]">
-
-            <div>
-
-              <div className="forge-eyebrow">Forge Intelligence</div>
-
-              <h2 className="forge-heading mt-6 text-5xl md:text-6xl">
-
-                Knowledge worth keeping.
-
-              </h2>
-
-            </div>
-
-            <div className="flex items-end">
-
-              <p className="max-w-2xl text-base leading-8 text-forge-charcoal-900/62">
-
-                Insights, evidence, frameworks and field observations from the
-
-                realities of leading school sport. Forge Intelligence will grow
-
-                through useful work, not content for content&apos;s sake.
-
-              </p>
-
-            </div>
-
-          </div>
-
-          <div className="mt-14 grid gap-px bg-forge-charcoal-900/12 md:grid-cols-2 lg:grid-cols-4">
-
-            {[
-
-              ["Insight", "Patterns worth noticing."],
-
-              ["Framework", "Structures worth reusing."],
-
-              ["Field Note", "Observations from practice."],
-
-              ["Evidence Review", "Research made useful."],
-
-            ].map(([type, description]) => (
-
-              <article
-
-                key={type}
-
-                className="min-h-[220px] bg-forge-ivory-100 p-7"
-
-              >
-
-                <div className="forge-rule" />
-
-                <div className="mt-16 text-[10px] font-semibold uppercase tracking-[0.14em] text-forge-bronze-600">
-
-                  {type}
-
-                </div>
-
-                <p className="forge-heading mt-4 text-2xl">{description}</p>
-
-              </article>
-
-            ))}
-
-          </div>
-
-        </div>
-
-      </section>
-
-      {/* PRINCIPLES */}
-
-      <section id="about" className="forge-section bg-forge-forest-950 text-forge-ivory-100">
-
-        <div className="forge-container">
-
-          <div className="max-w-3xl">
-
-            <div className="forge-eyebrow">Our Principles</div>
-
-            <h2 className="forge-heading mt-6 text-5xl md:text-6xl">
-
-              How Forge works.
-
+            <h2 className="max-w-5xl text-5xl font-semibold uppercase leading-[0.92] tracking-[-0.05em] md:text-7xl">
+              The intelligence
+              <br />
+              layer for
+              <br />
+              school sport.
             </h2>
 
+            <div className="mt-14 max-w-2xl space-y-6 text-base leading-7 text-black/70 md:text-lg md:leading-8">
+              <p>
+                Every sports department contains operational knowledge: what
+                works, what fails, where time disappears, where programmes
+                become dependent on individuals, and which systems create
+                resilience.
+              </p>
+
+              <p>
+                Forge is building structured ways to capture that knowledge,
+                turn it into useful intelligence and return it to sports leaders
+                as better tools, benchmarks and operating practices.
+              </p>
+            </div>
           </div>
 
-          <div className="mt-14 grid border-t border-forge-bronze-500/30 md:grid-cols-2">
+          <div className="flex flex-col justify-between border-t border-black/20 p-8 md:p-10 lg:col-span-4 lg:border-l lg:border-t-0 lg:p-14">
+            <Keystone className="h-24 w-24" />
 
-            {[
-
-              [
-
-                "Evidence over assumption.",
-
-                "We seek evidence. We test assumptions.",
-
-              ],
-
-              [
-
-                "Systems over heroics.",
-
-                "Strong departments should not depend on exceptional individuals holding everything together.",
-
-              ],
-
-              [
-
-                "Decisions should outlive memory.",
-
-                "Preserve what was decided, why it was decided and what happened next.",
-
-              ],
-
-              [
-
-                "Knowledge should compound.",
-
-                "Every useful experience should make the next decision easier.",
-
-              ],
-
-            ].map(([title, copy], index) => (
-
-              <div
-
-                key={title}
-
-                className={`py-9 md:p-10 ${
-
-                  index % 2 === 1 ? "md:border-l md:border-forge-bronze-500/30" : ""
-
-                } ${
-
-                  index > 1 ? "border-t border-forge-bronze-500/30" : index === 1 ? "border-t border-forge-bronze-500/30 md:border-t-0" : ""
-
-                }`}
-
-              >
-
-                <div className="text-[10px] tracking-[0.15em] text-forge-bronze-400">
-
-                  0{index + 1}
-
-                </div>
-
-                <h3 className="forge-heading mt-5 text-3xl">{title}</h3>
-
-                <p className="mt-4 max-w-md text-sm leading-7 text-forge-ivory-100/58">
-
-                  {copy}
-
-                </p>
-
-              </div>
-
-            ))}
-
+            <div className="mt-24 space-y-4 text-sm font-semibold tracking-[0.12em]">
+              <p>DIAGNOSTICS</p>
+              <p>↓</p>
+              <p>FRAMEWORKS</p>
+              <p>↓</p>
+              <p>BENCHMARKS</p>
+              <p>↓</p>
+              <p>BETTER SPORT</p>
+            </div>
           </div>
-
         </div>
-
       </section>
 
       {/* FINAL CTA */}
+      <section className="bg-[#f2efe8]">
+        <div className="mx-auto max-w-[1500px] px-6 py-20 md:px-10 md:py-28 lg:px-14 lg:py-36">
+          <p className="mb-10 text-xs font-semibold tracking-[0.18em]">
+            START HERE
+          </p>
 
-      <section className="bg-forge-bronze-500">
+          <h2 className="max-w-6xl text-6xl font-semibold uppercase leading-[0.88] tracking-[-0.06em] md:text-8xl lg:text-[7.5rem]">
+            Know where your
+            <br />
+            department
+            <br />
+            is exposed.
+          </h2>
 
-        <div className="forge-container grid gap-8 py-12 md:grid-cols-[1fr_auto] md:items-center">
+          <div className="mt-14 flex flex-col gap-8 border-t border-black/20 pt-10 md:flex-row md:items-end md:justify-between">
+            <div>
+              <p className="text-lg md:text-xl">
+                Start with the Forge Sport Department Stress Test.
+              </p>
 
-          <div>
-
-            <div className="text-[10px] font-semibold uppercase tracking-[0.15em] text-forge-forest-950/65">
-
-              Facing a consequential decision?
-
+              <p className="mt-4 text-xs font-medium tracking-[0.14em] text-black/60">
+                10 MINUTES · 24 QUESTIONS · CONFIDENTIAL · FREE
+              </p>
             </div>
 
-            <h2 className="forge-heading mt-3 text-4xl text-forge-forest-950">
-
-              Pressure-test it before you commit.
-
-            </h2>
-
+            <Link
+              href="/stress-test"
+              className="inline-flex w-fit bg-black px-7 py-5 text-xs font-semibold tracking-[0.14em] text-[#f2efe8] transition-opacity hover:opacity-75"
+            >
+              TAKE THE STRESS TEST <Arrow />
+            </Link>
           </div>
-
-          <a
-
-            href="/submit"
-
-            className="inline-flex min-h-12 items-center justify-center border border-forge-forest-950 px-6 text-xs font-semibold uppercase tracking-[0.14em] text-forge-forest-950 transition hover:bg-forge-forest-950 hover:text-forge-ivory-100"
-
-          >
-
-            Submit a Decision
-
-          </a>
-
         </div>
-
       </section>
 
       {/* FOOTER */}
-
-      <footer className="bg-forge-forest-950 text-forge-ivory-100">
-
-        <div className="forge-container py-14">
-
-          <div className="grid gap-10 border-b border-white/10 pb-12 md:grid-cols-[1fr_auto]">
-
+      <footer className="border-t border-black bg-black text-[#f2efe8]">
+        <div className="mx-auto max-w-[1500px] px-6 py-10 md:px-10 lg:px-14">
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
             <div>
-
               <div className="flex items-center gap-3">
-
-                <KeystoneMark className="h-9 w-9 text-forge-bronze-500" />
-
-                <span className="text-xl font-semibold tracking-[0.22em]">
-
+                <Keystone className="h-7 w-7" />
+                <span className="text-sm font-semibold tracking-[0.18em]">
                   FORGE
-
                 </span>
-
               </div>
 
-              <p className="mt-4 text-xs uppercase tracking-[0.16em] text-white/42">
-
-                Sports Leadership Intelligence
-
+              <p className="mt-5 max-w-xs text-sm leading-6 text-white/55">
+                Independent intelligence for school sport.
               </p>
-
-              <p className="forge-heading mt-7 text-3xl text-forge-ivory-100/90">
-
-                Behind better sport.
-
-              </p>
-
             </div>
 
-            <div className="grid grid-cols-2 gap-x-12 gap-y-4 text-xs uppercase tracking-[0.13em] text-white/55">
-
-              <a href="#forge" className="hover:text-forge-bronze-300">
-
-                Forge
-
+            <div className="space-y-3 text-xs font-medium tracking-[0.12em] text-white/70">
+              <a href="#method" className="block hover:text-white">
+                METHOD
               </a>
-
-              <a href="#intelligence" className="hover:text-forge-bronze-300">
-
-                Intelligence
-
+              <Link href="/stress-test" className="block hover:text-white">
+                STRESS TEST
+              </Link>
+              <a href="#intelligence" className="block hover:text-white">
+                INSIGHTS
               </a>
-
-              <a
-
-                href="#decision-review"
-
-                className="hover:text-forge-bronze-300"
-
-              >
-
-                Decision Review
-
+              <a href="#about" className="block hover:text-white">
+                ABOUT
               </a>
-
-              <a href="/submit" className="hover:text-forge-bronze-300">
-
-                Submit a Decision
-
-              </a>
-
             </div>
 
+            <div className="flex flex-col justify-between md:items-end">
+              <p className="text-xs tracking-[0.12em] text-white/45">
+                © 2026 FORGE
+              </p>
+
+              <div className="mt-6 flex gap-5 text-[10px] tracking-[0.12em] text-white/45">
+                <span>PRIVACY</span>
+                <span>TERMS</span>
+              </div>
+            </div>
           </div>
-
-          <div className="flex flex-col gap-3 pt-6 text-[10px] uppercase tracking-[0.12em] text-white/30 md:flex-row md:items-center md:justify-between">
-
-            <span>© 2026 Forge. All rights reserved.</span>
-
-            <span>Built for leaders responsible for school sport.</span>
-
-          </div>
-
         </div>
-
       </footer>
-
     </main>
-
   );
-
 }
