@@ -2,12 +2,231 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --forge-forest: #102c24;
+  --forge-forest-deep: #081a16;
+  --forge-bronze: #b9864a;
+  --forge-ivory: #f6f4ee;
+  --forge-stone: #8c8b86;
+  --forge-charcoal: #111311;
+}
+
+/* ========================================
+   BASE
+======================================== */
+
 html {
   scroll-behavior: smooth;
+  background: var(--forge-ivory);
 }
 
 body {
   margin: 0;
-  background: #ffffff;
-  color: #111827;
+  background: var(--forge-ivory);
+  color: var(--forge-charcoal);
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: var(--forge-bronze);
+  color: var(--forge-forest-deep);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--forge-bronze);
+  outline-offset: 3px;
+}
+
+/* ========================================
+   FORGE TYPOGRAPHY
+======================================== */
+
+.forge-display {
+  font-family: var(--font-source-serif), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 0.98;
+}
+
+.forge-heading {
+  font-family: var(--font-source-serif), Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.018em;
+  line-height: 1.05;
+}
+
+.forge-body {
+  font-family: var(--font-inter), Arial, sans-serif;
+  line-height: 1.65;
+}
+
+.forge-eyebrow {
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--forge-bronze);
+}
+
+/* ========================================
+   LAYOUT
+======================================== */
+
+.forge-container {
+  width: min(100% - 40px, 1280px);
+  margin-inline: auto;
+}
+
+.forge-section {
+  padding-block: clamp(4rem, 8vw, 7.5rem);
+}
+
+/* ========================================
+   FORGE STRUCTURAL LANGUAGE
+======================================== */
+
+.forge-rule {
+  width: 2rem;
+  height: 2px;
+  background: var(--forge-bronze);
+}
+
+.forge-border {
+  border-color: rgba(185, 134, 74, 0.35);
+}
+
+/* ========================================
+   SURFACES
+======================================== */
+
+.forge-dark {
+  background: var(--forge-forest-deep);
+  color: var(--forge-ivory);
+}
+
+.forge-forest {
+  background: var(--forge-forest);
+  color: var(--forge-ivory);
+}
+
+.forge-light {
+  background: var(--forge-ivory);
+  color: var(--forge-charcoal);
+}
+
+/* ========================================
+   BUTTON FOUNDATIONS
+======================================== */
+
+.forge-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.85rem 1.5rem;
+
+  font-family: var(--font-inter), Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+
+  border: 1px solid var(--forge-bronze);
+  border-radius: 2px;
+
+  cursor: pointer;
+
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.forge-button-primary {
+  background: var(--forge-bronze);
+  color: var(--forge-forest-deep);
+}
+
+.forge-button-primary:hover {
+  background: #c79a5c;
+}
+
+.forge-button-secondary {
+  background: transparent;
+  color: var(--forge-ivory);
+}
+
+.forge-button-secondary:hover {
+  background: var(--forge-bronze);
+  color: var(--forge-forest-deep);
+}
+
+.forge-button:active {
+  transform: translateY(1px);
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (min-width: 768px) {
+  .forge-container {
+    width: min(100% - 64px, 1280px);
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
