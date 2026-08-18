@@ -85,7 +85,7 @@ export default function Home() {
             <div className="mt-16 flex flex-col items-start gap-7 md:mt-24 md:flex-row md:items-end md:justify-between">
               <p className="max-w-xl text-lg leading-relaxed md:text-xl">
                 Forge develops independent intelligence, tools and operating
-                frameworks for the people leading sport in international
+                frameworks for the people leading sport in
                 schools.
               </p>
 
