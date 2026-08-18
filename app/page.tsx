@@ -154,7 +154,7 @@ export default function Home() {
 
                 Forge develops independent intelligence, tools and operating
 
-                frameworks for the people leading sport in international
+                frameworks for the people leading sport in
 
                 schools.
 
