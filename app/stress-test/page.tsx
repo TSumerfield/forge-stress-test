@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import { supabase } from "../../lib/supabaseClient";
 
 type DimensionKey =
   | "leadership"
@@ -348,6 +349,11 @@ export default function StressTestPage() {
   const [currentDimensionIndex, setCurrentDimensionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [finished, setFinished] = useState(false);
+  const [saveStatus, setSaveStatus] = useState<
+    "idle" | "saving" | "saved" | "error"
+  >("idle");
+
+  const hasSaved = useRef(false);
 
   const currentDimension = dimensions[currentDimensionIndex];
 
@@ -411,12 +417,63 @@ export default function StressTestPage() {
     }));
   }
 
-  function nextDimension() {
+  async function saveAssessment() {
+    if (hasSaved.current) return;
+
+    hasSaved.current = true;
+    setSaveStatus("saving");
+
+    const payload = {
+      answers,
+
+      forge_score: overallScore,
+      profile: profile.name,
+
+      leadership_score: scores.leadership,
+      people_score: scores.people,
+      systems_score: scores.systems,
+      programme_score: scores.programme,
+      evidence_score: scores.evidence,
+      resilience_score: scores.resilience,
+
+      strongest_dimension: strongestDimension.name,
+      weakest_dimension: weakestDimension.name,
+
+      fragility_signals: fragilitySignals.map((signal) => ({
+        title: signal.title,
+        description: signal.description,
+      })),
+    };
+
+    try {
+      const { error } = await supabase
+        .from("stress_test_responses")
+        .insert([payload]);
+
+      if (error) {
+        console.error("Stress Test save error:", error);
+        setSaveStatus("error");
+        hasSaved.current = false;
+        return;
+      }
+
+      setSaveStatus("saved");
+    } catch (error) {
+      console.error("Unexpected Stress Test save error:", error);
+      setSaveStatus("error");
+      hasSaved.current = false;
+    }
+  }
+
+  async function nextDimension() {
     if (!currentDimensionComplete) return;
 
     if (currentDimensionIndex === dimensions.length - 1) {
       setFinished(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
+
+      await saveAssessment();
+
       return;
     }
 
@@ -436,6 +493,9 @@ export default function StressTestPage() {
     setCurrentDimensionIndex(0);
     setFinished(false);
     setStarted(false);
+    setSaveStatus("idle");
+    hasSaved.current = false;
+
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -518,6 +578,7 @@ export default function StressTestPage() {
                     <span className="text-xs font-semibold text-black/40">
                       {number}
                     </span>
+
                     <span className="text-sm font-semibold uppercase tracking-[0.08em]">
                       {label}
                     </span>
@@ -567,6 +628,7 @@ export default function StressTestPage() {
                 <span className="text-[28vw] font-semibold leading-[0.75] tracking-[-0.08em] md:text-[14vw]">
                   {overallScore}
                 </span>
+
                 <span className="mb-2 text-2xl font-semibold text-black/35 md:mb-4">
                   /100
                 </span>
@@ -576,6 +638,7 @@ export default function StressTestPage() {
                 <p className="text-sm font-semibold tracking-[0.16em]">
                   {profile.name}
                 </p>
+
                 <p className="mt-3 max-w-xl text-xl leading-relaxed">
                   {profile.description}
                 </p>
@@ -591,20 +654,28 @@ export default function StressTestPage() {
                 <p className="text-xs font-semibold tracking-[0.14em] text-black/50">
                   STRONGEST SYSTEM
                 </p>
+
                 <p className="mt-2 text-3xl font-semibold uppercase tracking-[-0.04em]">
                   {strongestDimension.name}
                 </p>
-                <p className="mt-2 text-lg">{scores[strongestDimension.key]}</p>
+
+                <p className="mt-2 text-lg">
+                  {scores[strongestDimension.key]}
+                </p>
               </div>
 
               <div className="mt-10 border-t border-black/20 pt-8">
                 <p className="text-xs font-semibold tracking-[0.14em] text-black/50">
                   PRIMARY VULNERABILITY
                 </p>
+
                 <p className="mt-2 text-3xl font-semibold uppercase tracking-[-0.04em]">
                   {weakestDimension.name}
                 </p>
-                <p className="mt-2 text-lg">{scores[weakestDimension.key]}</p>
+
+                <p className="mt-2 text-lg">
+                  {scores[weakestDimension.key]}
+                </p>
               </div>
             </div>
           </div>
@@ -629,7 +700,9 @@ export default function StressTestPage() {
                   <div className="h-2 overflow-hidden bg-black/10">
                     <div
                       className="h-full bg-black"
-                      style={{ width: `${scores[dimension.key]}%` }}
+                      style={{
+                        width: `${scores[dimension.key]}%`,
+                      }}
                     />
                   </div>
 
@@ -651,10 +724,14 @@ export default function StressTestPage() {
 
               <div className="mt-8 grid gap-px bg-white/20 md:grid-cols-2">
                 {fragilitySignals.map((signal) => (
-                  <div key={signal.title} className="bg-black p-7">
+                  <div
+                    key={signal.title}
+                    className="bg-black p-7"
+                  >
                     <h2 className="text-2xl font-semibold uppercase tracking-[-0.03em]">
                       {signal.title}
                     </h2>
+
                     <p className="mt-4 leading-relaxed text-white/65">
                       {signal.description}
                     </p>
@@ -691,9 +768,31 @@ export default function StressTestPage() {
               <p className="text-xs font-semibold tracking-[0.18em] text-black/45">
                 FORGE
               </p>
+
               <p className="mt-2 text-2xl font-semibold uppercase tracking-[-0.03em]">
                 Measure → Understand → Improve
               </p>
+
+              {saveStatus === "saving" && (
+                <p className="mt-3 text-xs tracking-[0.1em] text-black/40">
+                  SAVING ASSESSMENT...
+                </p>
+              )}
+
+              {saveStatus === "saved" && (
+                <p className="mt-3 text-xs tracking-[0.1em] text-black/40">
+                  ASSESSMENT RECORDED
+                </p>
+              )}
+
+              {saveStatus === "error" && (
+                <button
+                  onClick={saveAssessment}
+                  className="mt-3 text-xs font-semibold tracking-[0.1em] underline"
+                >
+                  RETRY SAVING ASSESSMENT
+                </button>
+              )}
             </div>
 
             <div className="flex flex-wrap gap-3">
@@ -803,7 +902,9 @@ export default function StressTestPage() {
                       return (
                         <button
                           key={value}
-                          onClick={() => selectAnswer(question.id, value)}
+                          onClick={() =>
+                            selectAnswer(question.id, value)
+                          }
                           className={`min-h-14 border px-2 py-3 text-sm font-semibold transition-colors ${
                             selected
                               ? "border-black bg-black text-white"
