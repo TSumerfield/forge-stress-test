@@ -34,6 +34,7 @@ export default function Home() {
             <a href="#diagnostic" className="transition-colors hover:text-[var(--forge-bronze)]">Stress Test</a>
             <a href="#method" className="transition-colors hover:text-[var(--forge-bronze)]">Method</a>
             <a href="#intelligence" className="transition-colors hover:text-[var(--forge-bronze)]">Intelligence</a>
+            <Link href="/about" className="transition-colors hover:text-[var(--forge-bronze)]">About</Link>
           </nav>
           <Link href="/stress-test" className="forge-button forge-button-primary">Start the test <Arrow /></Link>
         </div>
