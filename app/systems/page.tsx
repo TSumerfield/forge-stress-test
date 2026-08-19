@@ -78,8 +78,8 @@ export default function SystemsPage() {
                 <p className="mt-6 text-sm leading-7 text-[rgba(17,19,17,0.62)]">
                   A five-day protocol for finding where delivery depends on a person when it should depend on a system.
                 </p>
-                <p className="mt-5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--forge-bronze)]">
-                  Use the protocol ↗
+                <p className="mt-5 inline-flex items-center text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--forge-bronze)]">
+                  Use the protocol <Arrow />
                 </p>
               </Link>
 
@@ -92,8 +92,8 @@ export default function SystemsPage() {
                 <p className="mt-6 text-sm leading-7 text-[rgba(17,19,17,0.62)]">
                   A practical protocol for making minimum coaching standards visible, observable and coachable across different sports.
                 </p>
-                <p className="mt-5 text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--forge-bronze)]">
-                  Use the protocol ↗
+                <p className="mt-5 inline-flex items-center text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--forge-bronze)]">
+                  Use the protocol <Arrow />
                 </p>
               </Link>
             </div>
