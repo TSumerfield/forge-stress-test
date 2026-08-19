@@ -26,6 +26,7 @@ body {
   color: var(--forge-charcoal);
   font-family: var(--font-inter), Arial, sans-serif;
   font-synthesis: none;
+  font-variant-emoji: text;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -128,6 +129,46 @@ svg {
 
 .forge-border {
   border-color: rgba(185, 134, 74, 0.35);
+}
+
+/* ========================================
+   FORGE LINK ARROW
+======================================== */
+
+span[aria-hidden="true"] {
+  position: relative;
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.3rem;
+  overflow: hidden;
+  font-size: 0;
+  line-height: 0;
+  vertical-align: -0.15rem;
+}
+
+span[aria-hidden="true"]::before {
+  content: "";
+  position: absolute;
+  left: 0.05rem;
+  top: 0.47rem;
+  width: 0.76rem;
+  height: 1.5px;
+  background: currentColor;
+}
+
+span[aria-hidden="true"]::after {
+  content: "";
+  position: absolute;
+  right: 0.08rem;
+  top: 0.28rem;
+  width: 0.48rem;
+  height: 0.48rem;
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  transform-origin: center;
 }
 
 /* ========================================
