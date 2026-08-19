@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const ForgeMark = ({ className = "" }: { className?: string }) => (
-  <img src="/forge-mark.svg" alt="" className={className} aria-hidden="true" />
+  <img src="/forge-mark.png" alt="" className={className} aria-hidden="true" />
 );
 
 const Arrow = () => <span aria-hidden="true">↗</span>;
@@ -57,7 +57,7 @@ export default function Home() {
               <div className="absolute inset-0 rotate-45 border border-[rgba(185,134,74,0.4)]" />
               <div className="absolute inset-[15%] rotate-45 border border-[rgba(185,134,74,0.28)]" />
               <div className="absolute inset-[30%] rotate-45 bg-[var(--forge-forest)]" />
-              <ForgeMark className="absolute inset-[34%] h-[32%] w-[32%]" />
+              <ForgeMark className="absolute inset-[36%] h-[28%] w-[28%] object-contain" />
               <span className="absolute left-0 top-1/2 h-px w-full bg-[rgba(185,134,74,0.25)]" />
               <span className="absolute left-1/2 top-0 h-full w-px bg-[rgba(185,134,74,0.25)]" />
             </div>
