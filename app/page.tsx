@@ -1,11 +1,7 @@
 import Link from "next/link";
 
-const Keystone = ({ className = "" }: { className?: string }) => (
-  <svg viewBox="0 0 64 64" fill="none" className={className} aria-hidden="true">
-    <path d="M16 8H48L56 24L32 56L8 24L16 8Z" stroke="currentColor" strokeWidth="2" />
-    <path d="M16 8L32 56L48 8" stroke="currentColor" strokeWidth="2" />
-    <path d="M8 24H56" stroke="currentColor" strokeWidth="2" />
-  </svg>
+const ForgeMark = ({ className = "" }: { className?: string }) => (
+  <img src="/forge-mark.svg" alt="" className={className} aria-hidden="true" />
 );
 
 const Arrow = () => <span aria-hidden="true">↗</span>;
@@ -31,7 +27,7 @@ export default function Home() {
       <header className="relative z-20 border-b forge-border">
         <div className="forge-container flex h-[76px] items-center justify-between">
           <Link href="/" className="flex items-center gap-3" aria-label="Forge home">
-            <Keystone className="h-8 w-8 text-[var(--forge-bronze)]" />
+            <ForgeMark className="h-9 w-9" />
             <span className="text-sm font-semibold tracking-[0.2em]">FORGE</span>
           </Link>
           <nav className="hidden items-center gap-9 text-[11px] font-semibold uppercase tracking-[0.14em] lg:flex">
@@ -61,7 +57,7 @@ export default function Home() {
               <div className="absolute inset-0 rotate-45 border border-[rgba(185,134,74,0.4)]" />
               <div className="absolute inset-[15%] rotate-45 border border-[rgba(185,134,74,0.28)]" />
               <div className="absolute inset-[30%] rotate-45 bg-[var(--forge-forest)]" />
-              <Keystone className="absolute inset-[35%] h-[30%] w-[30%] text-[var(--forge-bronze)]" />
+              <ForgeMark className="absolute inset-[34%] h-[32%] w-[32%]" />
               <span className="absolute left-0 top-1/2 h-px w-full bg-[rgba(185,134,74,0.25)]" />
               <span className="absolute left-1/2 top-0 h-full w-px bg-[rgba(185,134,74,0.25)]" />
             </div>
@@ -79,6 +75,20 @@ export default function Home() {
               <p className="text-lg leading-8 text-[rgba(246,244,238,0.72)]">Fixtures happen. Teams compete. Trips run. Parents get informed. Delivery continues.</p>
               <p className="text-lg leading-8 text-[rgba(246,244,238,0.72)]">Yet knowledge stays in people&apos;s heads, leaders become bottlenecks and constant delivery leaves no capacity to improve.</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="forge-dark border-b border-[rgba(185,134,74,0.35)]">
+        <div className="forge-container grid lg:grid-cols-12">
+          <figure className="relative min-h-[430px] overflow-hidden lg:col-span-8 lg:min-h-[620px]">
+            <img src="/forge-track.jpg" alt="Empty athletics track and stadium at first light" className="absolute inset-0 h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[rgba(8,26,22,0.78)] via-transparent to-transparent" />
+            <figcaption className="absolute bottom-8 left-8 forge-eyebrow text-[var(--forge-ivory)] md:bottom-10 md:left-10">The system behind the performance</figcaption>
+          </figure>
+          <div className="flex flex-col justify-between border-t border-[rgba(185,134,74,0.35)] px-8 py-10 lg:col-span-4 lg:border-l lg:border-t-0 lg:p-12">
+            <p className="forge-eyebrow">Visible outcomes</p>
+            <p className="forge-heading mt-24 text-3xl lg:text-4xl">Performance is what people see. Systems are what make it repeatable.</p>
           </div>
         </div>
       </section>
@@ -122,11 +132,16 @@ export default function Home() {
       </section>
 
       <section id="intelligence" className="forge-section border-b forge-border">
-        <div className="forge-container grid gap-16 lg:grid-cols-[1fr_0.85fr] lg:items-end">
+        <div className="forge-container grid gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
           <div><p className="forge-eyebrow">What Forge is building</p><h2 className="forge-heading mt-8 max-w-3xl text-5xl text-[var(--forge-forest-deep)] md:text-7xl">The intelligence layer for school sport.</h2><p className="mt-8 max-w-2xl text-lg leading-8 text-[rgba(17,19,17,0.68)]">Forge turns operational experience into shared intelligence: clearer diagnostics, useful benchmarks and practical systems that compound over time.</p></div>
-          <div className="grid grid-cols-2 border-l border-t forge-border">
-            {["Diagnostics", "Patterns", "Benchmarks", "Better systems"].map((item, index) => <div key={item} className="aspect-square border-b border-r p-6 forge-border"><span className="forge-eyebrow">0{index + 1}</span><p className="forge-heading mt-12 text-xl">{item}</p></div>)}
-          </div>
+          <figure className="relative min-h-[440px] overflow-hidden border forge-border">
+            <img src="/forge-facility.jpg" alt="Architectural view through a modern indoor sports facility" className="absolute inset-0 h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[rgba(8,26,22,0.8)] via-transparent to-transparent" />
+            <figcaption className="absolute bottom-7 left-7 right-7 flex items-end justify-between">
+              <span className="forge-eyebrow text-[var(--forge-ivory)]">Diagnostics · Patterns · Benchmarks</span>
+              <ForgeMark className="h-12 w-12" />
+            </figcaption>
+          </figure>
         </div>
       </section>
 
@@ -139,7 +154,7 @@ export default function Home() {
 
       <footer className="forge-dark border-t border-[rgba(185,134,74,0.35)]">
         <div className="forge-container flex flex-col gap-8 py-10 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-3"><Keystone className="h-7 w-7 text-[var(--forge-bronze)]" /><span className="text-xs font-semibold tracking-[0.2em]">FORGE</span></div>
+          <div className="flex items-center gap-3"><ForgeMark className="h-8 w-8" /><span className="text-xs font-semibold tracking-[0.2em]">FORGE</span></div>
           <p className="text-xs tracking-[0.1em] text-[rgba(246,244,238,0.45)]">© 2026 FORGE · INDEPENDENT INTELLIGENCE FOR SCHOOL SPORT</p>
         </div>
       </footer>
