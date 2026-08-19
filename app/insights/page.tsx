@@ -13,7 +13,7 @@ const Arrow = () => <span aria-hidden="true">↗</span>;
 
 const insights = [
   { number:"001", label:"Leadership dependency", title:"When one capable leader becomes the operating system", text:"A department can look efficient while quietly becoming dependent on one person to remember, decide and rescue.", href:"/insights/leadership-dependency", status:"Read insight" },
-  { number:"002", label:"Coaching consistency", title:"Why standards drift between teams and seasons", text:"Strong individual coaches do not automatically create a consistent programme. Shared expectations have to survive different people and contexts.", status:"Research question" },
+  { number:"002", label:"Coaching consistency", title:"Why standards drift between teams and seasons", text:"Strong individual coaches do not automatically create a consistent programme. Shared expectations have to survive different people and contexts.", href:"/insights/coaching-consistency", status:"Read insight" },
   { number:"003", label:"Knowledge resilience", title:"What leaves when good staff leave", text:"Turnover becomes expensive when the department loses relationships, routines and judgement that were never captured in the system.", status:"Research question" },
   { number:"004", label:"Operational clarity", title:"Busy is not the same as controlled", text:"A full calendar can hide unclear ownership, duplicated work and recurring problems that capable staff simply absorb.", status:"Research question" },
   { number:"005", label:"Capacity", title:"Growth can make a successful programme more fragile", text:"More teams, fixtures and opportunities add value only when the operating system can absorb the additional complexity.", status:"Research question" },
