@@ -10,7 +10,6 @@ const ForgeMark = ({ className = "" }: { className?: string }) => (
   <img src="/forge-mark.png" alt="" className={className} aria-hidden="true" />
 );
 
-const Arrow = () => <span aria-hidden="true">↗</span>;
 
 const systems = [
   "People and leadership",
@@ -42,7 +41,7 @@ export default function AboutPage() {
             <Link href="/#intelligence" className="transition-colors hover:text-[var(--forge-bronze)]">Intelligence</Link>
             <Link href="/about" aria-current="page" className="text-[var(--forge-bronze)]">About</Link>
           </nav>
-          <Link href="/stress-test" className="forge-button forge-button-primary">Start the test <Arrow /></Link>
+          <Link href="/stress-test" className="forge-button forge-button-primary">Start the test</Link>
         </div>
       </header>
 
@@ -131,7 +130,7 @@ export default function AboutPage() {
       <section className="forge-dark forge-section">
         <div className="forge-container grid gap-12 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-8"><p className="forge-eyebrow">Start with the diagnostic</p><h2 className="forge-heading mt-8 max-w-4xl text-5xl md:text-7xl">See the department more clearly.</h2></div>
-          <div className="lg:col-span-4 lg:text-right"><Link href="/stress-test" className="forge-button forge-button-primary">Take the free stress test <Arrow /></Link><p className="mt-5 text-xs uppercase tracking-[0.13em] text-[rgba(246,244,238,0.5)]">24 questions · Confidential · Free</p></div>
+          <div className="lg:col-span-4 lg:text-right"><Link href="/stress-test" className="forge-button forge-button-primary">Take the free stress test</Link><p className="mt-5 text-xs uppercase tracking-[0.13em] text-[rgba(246,244,238,0.5)]">24 questions · Confidential · Free</p></div>
         </div>
       </section>
 

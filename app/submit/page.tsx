@@ -449,7 +449,7 @@ export default function SubmitPage() {
             href="/"
             className="text-sm text-gray-500 hover:text-gray-900"
           >
-            ← Return to Forge
+            Return to Forge
           </a>
         </div>
       </section>

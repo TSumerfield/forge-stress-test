@@ -85,15 +85,15 @@ export default function NextStepPage() {
         <div className="mx-auto grid max-w-[1500px] lg:grid-cols-3">
           <article className="flex min-h-[390px] flex-col justify-between border-b border-black/20 p-8 lg:border-b-0 lg:border-r lg:p-10">
             <div><p className="text-xs font-semibold tracking-[0.16em] text-black/45">01 · ACT INDEPENDENTLY</p><h2 className="mt-8 text-4xl font-semibold uppercase tracking-[-0.05em]">Use your results.</h2><p className="mt-5 leading-7 text-black/60">Return to your three recommended actions and assign an owner, deadline and evidence of completion.</p></div>
-            <Link href="/readiness-check" className="mt-10 text-xs font-semibold tracking-[0.14em]">REVISIT THE CHECK →</Link>
+            <Link href="/readiness-check" className="mt-10 w-fit text-xs font-semibold tracking-[0.14em] underline underline-offset-8">REVISIT THE CHECK</Link>
           </article>
           <article className="flex min-h-[390px] flex-col justify-between border-b border-black/20 bg-black p-8 text-[#f3f0e8] lg:border-b-0 lg:border-r lg:p-10">
             <div><p className="text-xs font-semibold tracking-[0.16em] text-white/45">02 · INDEPENDENT REVIEW</p><h2 className="mt-8 text-4xl font-semibold uppercase tracking-[-0.05em]">Sequence the next 30 days.</h2><p className="mt-5 leading-7 text-white/65">Register interest in a fixed-scope Forge review of your gaps, documents and immediate priorities. No call required.</p></div>
-            <a href="#interest" className="mt-10 text-xs font-semibold tracking-[0.14em]">REGISTER INTEREST →</a>
+            <a href="#interest" className="mt-10 w-fit text-xs font-semibold tracking-[0.14em] underline underline-offset-8">REGISTER INTEREST</a>
           </article>
           <article className="flex min-h-[390px] flex-col justify-between p-8 lg:p-10">
             <div><p className="text-xs font-semibold tracking-[0.16em] text-black/45">03 · GO DEEPER</p><h2 className="mt-8 text-4xl font-semibold uppercase tracking-[-0.05em]">Examine the system.</h2><p className="mt-5 leading-7 text-black/60">Use the Department Stress Test to expose the structural conditions beneath immediate readiness gaps.</p></div>
-            <Link href="/stress-test" className="mt-10 text-xs font-semibold tracking-[0.14em]">TAKE THE STRESS TEST →</Link>
+            <Link href="/stress-test" className="mt-10 w-fit text-xs font-semibold tracking-[0.14em] underline underline-offset-8">TAKE THE STRESS TEST</Link>
           </article>
         </div>
       </section>
@@ -116,7 +116,7 @@ export default function NextStepPage() {
                 <label className="block"><span className="text-sm font-semibold">What would you want reviewed?</span><textarea value={reviewFocus} onChange={(e) => setReviewFocus(e.target.value)} rows={3} className="mt-3 w-full border border-black/30 bg-transparent p-4 outline-none focus:border-black" placeholder="Calendar, staffing, communication, risk planning…" /></label>
                 <label className="block"><span className="text-sm font-semibold">What outcome would make the review valuable?</span><textarea value={valuableOutcome} onChange={(e) => setValuableOutcome(e.target.value)} rows={3} className="mt-3 w-full border border-black/30 bg-transparent p-4 outline-none focus:border-black" placeholder="A clearer sequence, fewer launch risks, leadership assurance…" /></label>
                 <label className="block"><span className="text-sm font-semibold">Email <span className="font-normal text-black/45">(optional)</span></span><input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-3 w-full border border-black/30 bg-transparent p-4 outline-none focus:border-black" placeholder="you@school.org" /></label>
-                <button disabled={!interestLevel || !priceRange || status === "saving"} className="bg-black px-7 py-4 text-xs font-semibold tracking-[0.14em] text-white disabled:opacity-30">{status === "saving" ? "SAVING…" : "REGISTER INTEREST →"}</button>
+                <button disabled={!interestLevel || !priceRange || status === "saving"} className="bg-black px-7 py-4 text-xs font-semibold tracking-[0.14em] text-white disabled:opacity-30">{status === "saving" ? "SAVING…" : "REGISTER INTEREST"}</button>
                 {status === "error" && <p className="text-sm text-red-700">Your response could not be saved. Please try again.</p>}
               </form>
             )}

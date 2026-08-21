@@ -6,7 +6,6 @@ export const metadata: Metadata = {
   description: "A Forge field note on why coaching standards drift across teams, coaches and seasons, and what sports departments can do about it.",
 };
 
-const Arrow = () => <span aria-hidden="true">↗</span>;
 
 export default function CoachingConsistencyInsight() {
   return (
@@ -22,7 +21,7 @@ export default function CoachingConsistencyInsight() {
 
         <section className="forge-section border-b forge-border"><div className="forge-container grid gap-12 lg:grid-cols-12"><div className="lg:col-span-4"><p className="forge-eyebrow">One useful move</p></div><div className="lg:col-span-8"><h2 className="forge-heading max-w-4xl text-5xl text-[var(--forge-forest-deep)] md:text-6xl">Define five coaching non-negotiables before writing another handbook.</h2><p className="mt-8 max-w-3xl text-lg leading-8 text-[rgba(17,19,17,0.66)]">Choose five observable behaviours that should be true across every team regardless of sport. Keep them concrete enough to observe and coach. For example: session starts prepared; athletes know the purpose; feedback is specific; selection decisions are explained consistently; safeguarding and communication expectations are followed.</p><p className="mt-8 text-sm leading-7 text-[rgba(17,19,17,0.52)]">Forge note: this is an operating framework, not a benchmark claim. Comparative findings should only be published once diagnostic evidence supports them.</p></div></div></section>
 
-        <section className="forge-dark forge-section"><div className="forge-container grid gap-10 lg:grid-cols-12 lg:items-end"><div className="lg:col-span-8"><p className="forge-eyebrow">Make the standard visible</p><h2 className="forge-heading mt-7 text-5xl md:text-7xl">Build a coaching baseline.</h2></div><div className="lg:col-span-4 lg:text-right"><Link href="/systems/coaching-baseline" className="forge-button forge-button-primary">Use the system <Arrow /></Link></div></div></section>
+        <section className="forge-dark forge-section"><div className="forge-container grid gap-10 lg:grid-cols-12 lg:items-end"><div className="lg:col-span-8"><p className="forge-eyebrow">Make the standard visible</p><h2 className="forge-heading mt-7 text-5xl md:text-7xl">Build a coaching baseline.</h2></div><div className="lg:col-span-4 lg:text-right"><Link href="/systems/coaching-baseline" className="forge-button forge-button-primary">Use the system</Link></div></div></section>
       </article>
     </main>
   );

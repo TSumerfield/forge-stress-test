@@ -10,7 +10,6 @@ const ForgeMark = ({ className = "" }: { className?: string }) => (
   <img src="/forge-mark.png" alt="" className={className} aria-hidden="true" />
 );
 
-const Arrow = () => <span aria-hidden="true">↗</span>;
 
 const systems = [
   ["01", "Leadership & ownership", "Decision rights, priorities, role clarity and accountability."],
@@ -38,7 +37,7 @@ export default function SystemsPage() {
             <Link href="/about">About</Link>
           </nav>
           <Link href="/stress-test" className="forge-button forge-button-primary">
-            Start the test <Arrow />
+            Start the test
           </Link>
         </div>
       </header>
@@ -79,7 +78,7 @@ export default function SystemsPage() {
                   A five-day protocol for finding where delivery depends on a person when it should depend on a system.
                 </p>
                 <p className="mt-5 inline-flex items-center text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--forge-bronze)]">
-                  Use the protocol <Arrow />
+                  <span className="underline underline-offset-8">Use the protocol</span>
                 </p>
               </Link>
 
@@ -93,7 +92,7 @@ export default function SystemsPage() {
                   A practical protocol for making minimum coaching standards visible, observable and coachable across different sports.
                 </p>
                 <p className="mt-5 inline-flex items-center text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--forge-bronze)]">
-                  Use the protocol <Arrow />
+                  <span className="underline underline-offset-8">Use the protocol</span>
                 </p>
               </Link>
             </div>
@@ -148,7 +147,7 @@ export default function SystemsPage() {
               The Stress Test is the current starting point. It helps identify which operating problem deserves attention before Forge creates or recommends a solution.
             </p>
             <Link href="/stress-test" className="forge-button forge-button-primary mt-10">
-              Take the stress test <Arrow />
+              Take the stress test
             </Link>
           </div>
         </div>

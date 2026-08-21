@@ -191,56 +191,49 @@ span[aria-hidden="true"]::after {
 }
 
 /* ========================================
-   BUTTON FOUNDATIONS
+   TEXT LINK FOUNDATIONS
 ======================================== */
 
 .forge-button {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  min-height: 48px;
-  padding: 0.85rem 1.5rem;
-
   font-family: var(--font-inter), Arial, sans-serif;
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.12em;
-  line-height: 1;
+  line-height: 1.4;
   text-transform: uppercase;
-
-  border: 1px solid var(--forge-bronze);
-  border-radius: 2px;
-
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: var(--forge-bronze);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.4rem;
   cursor: pointer;
-
-  transition:
-    background-color 180ms ease,
-    color 180ms ease,
-    border-color 180ms ease,
-    transform 180ms ease;
+  transition: color 180ms ease, text-decoration-color 180ms ease;
 }
 
 .forge-button-primary {
-  background: var(--forge-bronze);
-  color: var(--forge-forest-deep);
+  background: transparent;
+  color: inherit;
 }
 
 .forge-button-primary:hover {
-  background: #c79a5c;
+  background: transparent;
+  color: var(--forge-bronze);
 }
 
 .forge-button-secondary {
   background: transparent;
-  color: var(--forge-ivory);
+  color: inherit;
 }
 
 .forge-button-secondary:hover {
-  background: var(--forge-bronze);
-  color: var(--forge-forest-deep);
+  background: transparent;
+  color: var(--forge-bronze);
 }
 
 .forge-button:active {
-  transform: translateY(1px);
+  opacity: 0.72;
 }
 
 /* ========================================

@@ -575,7 +575,7 @@ export default function StressTestPage() {
                   onClick={() => setStarted(true)}
                   className="mt-10 bg-black px-7 py-4 text-xs font-semibold tracking-[0.16em] text-white transition-opacity hover:opacity-80"
                 >
-                  START THE STRESS TEST →
+                  START THE STRESS TEST
                 </button>
               </div>
             </div>
@@ -846,7 +846,7 @@ export default function StressTestPage() {
                       disabled={!desiredNextStep || feedbackStatus === "saving"}
                       className="bg-black px-6 py-4 text-xs font-semibold tracking-[0.14em] text-white disabled:cursor-not-allowed disabled:opacity-30"
                     >
-                      {feedbackStatus === "saving" ? "SAVING..." : "SAVE MY INPUT →"}
+                      {feedbackStatus === "saving" ? "SAVING..." : "SAVE MY INPUT"}
                     </button>
                     <span className="text-xs text-black/45">
                       Only question 01 is required to submit.
@@ -871,7 +871,7 @@ export default function StressTestPage() {
                 FORGE
               </p>
               <p className="mt-2 text-2xl font-semibold uppercase tracking-[-0.03em]">
-                Measure → Understand → Improve
+                Measure · Understand · Improve
               </p>
               {saveStatus === "saving" && (
                 <p className="mt-3 text-xs tracking-[0.1em] text-black/40">
@@ -904,7 +904,7 @@ export default function StressTestPage() {
                 href="/"
                 className="bg-black px-6 py-4 text-xs font-semibold tracking-[0.14em] text-white"
               >
-                RETURN TO FORGE →
+                RETURN TO FORGE
               </Link>
             </div>
           </div>
@@ -1011,7 +1011,7 @@ export default function StressTestPage() {
                 disabled={currentDimensionIndex === 0}
                 className="text-xs font-semibold tracking-[0.14em] disabled:cursor-not-allowed disabled:opacity-25"
               >
-                ← PREVIOUS
+                PREVIOUS
               </button>
               <button
                 onClick={nextDimension}
@@ -1019,8 +1019,8 @@ export default function StressTestPage() {
                 className="bg-black px-6 py-4 text-xs font-semibold tracking-[0.14em] text-white disabled:cursor-not-allowed disabled:opacity-25"
               >
                 {currentDimensionIndex === dimensions.length - 1
-                  ? "SEE MY RESULTS →"
-                  : "NEXT DIMENSION →"}
+                  ? "SEE MY RESULTS"
+                  : "NEXT DIMENSION"}
               </button>
             </div>
           </div>

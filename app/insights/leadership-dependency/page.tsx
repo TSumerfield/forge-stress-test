@@ -6,7 +6,6 @@ export const metadata: Metadata = {
   description: "A practical Forge field note on how capable sports leaders can accidentally become the operating system of their department.",
 };
 
-const Arrow = () => <span aria-hidden="true">↗</span>;
 
 export default function LeadershipDependencyInsight() {
   return (
@@ -60,7 +59,7 @@ export default function LeadershipDependencyInsight() {
           </div>
         </section>
 
-        <section className="forge-dark forge-section"><div className="forge-container grid gap-10 lg:grid-cols-12 lg:items-end"><div className="lg:col-span-8"><p className="forge-eyebrow">Measure the system</p><h2 className="forge-heading mt-7 text-5xl md:text-7xl">How dependent is your department?</h2></div><div className="lg:col-span-4 lg:text-right"><Link href="/stress-test" className="forge-button forge-button-primary">Take the stress test <Arrow /></Link></div></div></section>
+        <section className="forge-dark forge-section"><div className="forge-container grid gap-10 lg:grid-cols-12 lg:items-end"><div className="lg:col-span-8"><p className="forge-eyebrow">Measure the system</p><h2 className="forge-heading mt-7 text-5xl md:text-7xl">How dependent is your department?</h2></div><div className="lg:col-span-4 lg:text-right"><Link href="/stress-test" className="forge-button forge-button-primary">Take the stress test</Link></div></div></section>
       </article>
     </main>
   );
