@@ -20,7 +20,7 @@ const method = [
 ];
 
 const ecosystem = [
-  ["01", "Diagnostics", "Measure the systems behind your sports operation and identify where attention is most valuable.", "/stress-test", "Start with the Stress Test"],
+  ["01", "Diagnostics", "Choose the right diagnostic for a school sports department or a sports association.", "/diagnostics", "Choose a diagnostic"],
   ["02", "Insights", "Use field observations, emerging research and operating patterns to see familiar problems differently.", "/insights", "Explore insights"],
   ["03", "Systems", "Practical frameworks and protocols built around recurring operational problems, not generic templates.", "/systems", "Explore systems"],
   ["04", "Benchmarking", "A developing evidence base for comparing sports operations with relevant peers while protecting confidentiality.", "/benchmarking", "See the direction"],
@@ -36,14 +36,15 @@ export default function Home() {
             <span className="text-sm font-semibold tracking-[0.2em]">FORGE</span>
           </Link>
           <nav className="hidden items-center gap-8 text-[11px] font-semibold uppercase tracking-[0.14em] lg:flex">
-            <Link href="/stress-test" className="transition-colors hover:text-[var(--forge-bronze)]">Stress Test</Link>
-            <Link href="/readiness-check" className="transition-colors hover:text-[var(--forge-bronze)]">Readiness Check</Link>
+            <Link href="/diagnostics" className="transition-colors hover:text-[var(--forge-bronze)]">Diagnostics</Link>
+            <Link href="/departments" className="transition-colors hover:text-[var(--forge-bronze)]">Departments</Link>
+            <Link href="/associations" className="transition-colors hover:text-[var(--forge-bronze)]">Associations</Link>
             <Link href="/insights" className="transition-colors hover:text-[var(--forge-bronze)]">Insights</Link>
             <Link href="/systems" className="transition-colors hover:text-[var(--forge-bronze)]">Systems</Link>
             <Link href="/benchmarking" className="transition-colors hover:text-[var(--forge-bronze)]">Benchmarking</Link>
             <Link href="/about" className="transition-colors hover:text-[var(--forge-bronze)]">About</Link>
           </nav>
-          <Link href="/stress-test" className="forge-button forge-button-primary">Start the test</Link>
+          <Link href="/diagnostics" className="forge-button forge-button-primary">Start a diagnostic</Link>
         </div>
       </header>
 
@@ -56,7 +57,7 @@ export default function Home() {
             </div>
             <div className="mt-16 grid max-w-[920px] gap-8 border-t pt-8 forge-border md:grid-cols-[1fr_auto] md:items-end">
               <p className="max-w-xl text-lg leading-8 text-[rgba(17,19,17,0.72)] xl:text-xl">Forge helps Directors of Sport, Athletic Directors and other school sports leaders measure their operating systems, understand what sits beneath performance and strengthen what matters most.</p>
-              <Link href="/stress-test" className="forge-button forge-button-primary w-fit">Take the free stress test</Link>
+              <Link href="/diagnostics" className="forge-button forge-button-primary w-fit">Explore diagnostics</Link>
             </div>
           </div>
           <aside className="relative hidden border-l forge-border lg:flex lg:flex-col lg:justify-between lg:py-20 lg:pl-12 xl:py-24 xl:pl-16">
@@ -92,7 +93,7 @@ export default function Home() {
 
       <section id="diagnostic" className="forge-section border-b forge-border">
         <div className="forge-container">
-          <div className="grid gap-10 lg:grid-cols-12"><div className="lg:col-span-4"><p className="forge-eyebrow">Forge diagnostics</p><p className="mt-6 max-w-sm text-sm leading-6 text-[rgba(17,19,17,0.6)]">Two confidential ways to identify what deserves attention.</p></div><div className="lg:col-span-8"><h2 className="forge-heading text-5xl text-[var(--forge-forest-deep)] md:text-7xl">Understand the system. Prepare for what is next.</h2><p className="mt-8 max-w-2xl text-xl leading-8 text-[rgba(17,19,17,0.68)]">Use the deeper Stress Test to expose structural fragility, or the five-minute Readiness Check to find immediate launch risks.</p></div></div>
+          <div className="grid gap-10 lg:grid-cols-12"><div className="lg:col-span-4"><p className="forge-eyebrow">Forge diagnostics</p><p className="mt-6 max-w-sm text-sm leading-6 text-[rgba(17,19,17,0.6)]">Department diagnostics for understanding what deserves attention.</p></div><div className="lg:col-span-8"><h2 className="forge-heading text-5xl text-[var(--forge-forest-deep)] md:text-7xl">Understand the system. Prepare for what is next.</h2><p className="mt-8 max-w-2xl text-xl leading-8 text-[rgba(17,19,17,0.68)]">Use the deeper Stress Test to expose structural fragility, or the five-minute Readiness Check to find immediate launch risks.</p><Link href="/diagnostics" className="forge-button mt-8 text-[var(--forge-forest-deep)]">See all diagnostics</Link></div></div>
           <div className="mt-16 grid border-l border-t forge-border md:grid-cols-2">
             <article className="flex min-h-[360px] flex-col justify-between border-b border-r p-8 forge-border lg:p-10"><div><p className="forge-eyebrow">Diagnostic 001 · Approx. 10 minutes</p><h3 className="forge-heading mt-10 text-4xl text-[var(--forge-forest-deep)] md:text-5xl">School Sports Systems Stress Test</h3><p className="mt-6 max-w-xl text-base leading-7 text-[rgba(17,19,17,0.64)]">Measure the structural strength and resilience of the systems behind your sports and athletics offering.</p></div><Link href="/stress-test" className="forge-button forge-button-primary mt-10 w-fit">Stress test your systems</Link></article>
             <article className="flex min-h-[360px] flex-col justify-between border-b border-r bg-[var(--forge-forest)] p-8 text-[var(--forge-ivory)] forge-border lg:p-10"><div><p className="forge-eyebrow">Diagnostic 002 · Approx. 5 minutes</p><h3 className="forge-heading mt-10 text-4xl md:text-5xl">School Sports Readiness Check</h3><p className="mt-6 max-w-xl text-base leading-7 text-[rgba(246,244,238,0.68)]">Find the unresolved operational risks most likely to disrupt the start of your year or season.</p></div><Link href="/readiness-check" className="forge-button mt-10 w-fit">Check your readiness</Link></article>
@@ -109,7 +110,7 @@ export default function Home() {
 
       <section className="forge-section border-b forge-border">
         <div className="forge-container">
-          <div className="grid gap-10 lg:grid-cols-12"><div className="lg:col-span-4"><p className="forge-eyebrow">The Forge ecosystem</p></div><div className="lg:col-span-8"><h2 className="forge-heading max-w-4xl text-5xl text-[var(--forge-forest-deep)] md:text-7xl">Measure the operation. Build the knowledge. Strengthen the system.</h2><p className="mt-8 max-w-3xl text-lg leading-8 text-[rgba(17,19,17,0.66)]">The Stress Test is the starting point, not the destination. Forge is developing an evidence-led body of diagnostics, intelligence and practical operating systems for sports leadership in international schools.</p></div></div>
+          <div className="grid gap-10 lg:grid-cols-12"><div className="lg:col-span-4"><p className="forge-eyebrow">The Forge ecosystem</p></div><div className="lg:col-span-8"><h2 className="forge-heading max-w-4xl text-5xl text-[var(--forge-forest-deep)] md:text-7xl">Measure the operation. Build the knowledge. Strengthen the system.</h2><p className="mt-8 max-w-3xl text-lg leading-8 text-[rgba(17,19,17,0.66)]">Forge is developing an evidence-led body of diagnostics, intelligence and practical operating systems for sports leadership in international schools.</p></div></div>
           <div className="mt-16 grid border-l border-t forge-border md:grid-cols-2">{ecosystem.map(([number,title,text,href,cta]) => <article key={number} className="flex min-h-[310px] flex-col justify-between border-b border-r p-8 forge-border lg:p-10"><div><span className="forge-eyebrow">{number}</span><h3 className="forge-heading mt-12 text-4xl text-[var(--forge-forest-deep)]">{title}</h3><p className="mt-5 max-w-lg text-sm leading-7 text-[rgba(17,19,17,0.62)]">{text}</p></div><Link href={href} className="mt-10 w-fit text-xs font-semibold uppercase tracking-[0.13em] text-[var(--forge-bronze)] underline underline-offset-8">{cta}</Link></article>)}</div>
         </div>
       </section>
@@ -133,9 +134,9 @@ export default function Home() {
         <div className="forge-container grid gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-end"><div><p className="forge-eyebrow">What Forge is building</p><h2 className="forge-heading mt-8 max-w-3xl text-5xl text-[var(--forge-forest-deep)] md:text-7xl">The intelligence layer for school sports leadership.</h2><p className="mt-8 max-w-2xl text-lg leading-8 text-[rgba(17,19,17,0.68)]">Forge is building toward clearer diagnostics, stronger operating patterns, useful benchmarks and practical systems that become more valuable as the evidence grows.</p><div className="mt-10 flex flex-wrap gap-6"><Link href="/insights" className="forge-button text-[var(--forge-forest-deep)]">Explore insights</Link><Link href="/benchmarking" className="forge-button text-[var(--forge-forest-deep)]">Benchmarking</Link></div></div><figure className="relative min-h-[440px] overflow-hidden border forge-border"><img src="/forge-facility.jpg" alt="Architectural view through a modern indoor sports facility" className="absolute inset-0 h-full w-full object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-[rgba(8,26,22,0.8)] via-transparent to-transparent" /><figcaption className="absolute bottom-7 left-7 right-7 flex items-end justify-between"><span className="forge-eyebrow text-[var(--forge-ivory)]">Diagnostics · Patterns · Benchmarks</span><ForgeMark className="h-12 w-12" /></figcaption></figure></div>
       </section>
 
-      <section className="forge-dark forge-section"><div className="forge-container grid gap-12 lg:grid-cols-12 lg:items-end"><div className="lg:col-span-8"><p className="forge-eyebrow">Start here</p><h2 className="forge-heading mt-8 text-5xl md:text-7xl">Know where your operation is exposed.</h2></div><div className="lg:col-span-4 lg:text-right"><Link href="/stress-test" className="forge-button forge-button-primary">Take the free stress test</Link><p className="mt-5 text-xs uppercase tracking-[0.13em] text-[rgba(246,244,238,0.5)]">6 systems · Confidential · Immediate result</p></div></div></section>
+      <section className="forge-dark forge-section"><div className="forge-container grid gap-12 lg:grid-cols-12 lg:items-end"><div className="lg:col-span-8"><p className="forge-eyebrow">Start here</p><h2 className="forge-heading mt-8 text-5xl md:text-7xl">Choose the question you need answered.</h2></div><div className="lg:col-span-4 lg:text-right"><Link href="/diagnostics" className="forge-button forge-button-primary">Start a diagnostic</Link><p className="mt-5 text-xs uppercase tracking-[0.13em] text-[rgba(246,244,238,0.5)]">Department and association diagnostics</p></div></div></section>
 
-      <footer className="forge-dark border-t border-[rgba(185,134,74,0.35)]"><div className="forge-container flex flex-col gap-8 py-10 md:flex-row md:items-center md:justify-between"><div className="flex items-center gap-3"><ForgeMark className="h-8 w-8" /><span className="text-xs font-semibold tracking-[0.2em]">FORGE</span></div><div className="flex flex-wrap gap-6 text-[10px] font-semibold uppercase tracking-[0.12em] text-[rgba(246,244,238,0.55)]"><Link href="/insights">Insights</Link><Link href="/systems">Systems</Link><Link href="/benchmarking">Benchmarking</Link><Link href="/about">About</Link></div></div></footer>
+      <footer className="forge-dark border-t border-[rgba(185,134,74,0.35)]"><div className="forge-container flex flex-col gap-8 py-10 md:flex-row md:items-center md:justify-between"><div className="flex items-center gap-3"><ForgeMark className="h-8 w-8" /><span className="text-xs font-semibold tracking-[0.2em]">FORGE</span></div><div className="flex flex-wrap gap-6 text-[10px] font-semibold uppercase tracking-[0.12em] text-[rgba(246,244,238,0.55)]"><Link href="/diagnostics">Diagnostics</Link><Link href="/departments">Departments</Link><Link href="/associations">Associations</Link><Link href="/insights">Insights</Link><Link href="/systems">Systems</Link><Link href="/benchmarking">Benchmarking</Link><Link href="/about">About</Link></div></div></footer>
     </main>
   );
 }
