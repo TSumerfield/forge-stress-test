@@ -196,7 +196,17 @@ export default function ReadinessCheckPage() {
           <div className="px-6 py-12 md:col-span-8 md:px-10 md:py-16"><div className="divide-y divide-white/20 border-y border-white/20">{actions[weakest.key].map((action, index) => <div key={action} className="grid gap-4 py-6 md:grid-cols-[50px_1fr]"><span className="text-xs font-semibold text-white/40">0{index + 1}</span><p className="text-lg leading-relaxed md:text-xl">{action}</p></div>)}</div></div>
         </div>
       </section>
-      <section className="border-b border-black/20"><div className="mx-auto grid max-w-[1500px] gap-8 px-6 py-12 md:grid-cols-2 md:px-10 md:py-16"><div><p className="text-xs font-semibold tracking-[0.18em] text-black/55">TURN FINDINGS INTO ACTION</p><h2 className="mt-5 text-4xl font-semibold uppercase tracking-[-0.05em]">Choose the smallest useful next step.</h2><p className="mt-5 max-w-xl leading-relaxed text-black/60">Act independently, register interest in an independent 30-day Action Review, or examine the deeper system beneath the gaps.</p><Link href={`/next-step?score=${overallScore}&profile=${encodeURIComponent(profile.name)}&exposure=${encodeURIComponent(weakest.name)}`} className="mt-8 inline-block text-xs font-semibold tracking-[0.16em] underline underline-offset-8">SEE MY OPTIONS</Link></div><div className="flex items-end justify-start md:justify-end"><button onClick={restart} className="border border-black px-6 py-4 text-xs font-semibold tracking-[0.14em]">RETAKE THE CHECK</button></div></div></section>
+      <section className="border-b border-black/20">
+        <div className="mx-auto grid max-w-[1500px] gap-8 px-6 py-12 md:grid-cols-2 md:px-10 md:py-16">
+          <div>
+            <p className="text-xs font-semibold tracking-[0.18em] text-black/55">TURN FINDINGS INTO ACTION</p>
+            <h2 className="mt-5 text-4xl font-semibold uppercase tracking-[-0.05em]">Want independent help with this one issue?</h2>
+            <p className="mt-5 max-w-xl leading-relaxed text-black/60">Forge is testing a focused Action Review: one operational problem, independent diagnosis, a recommended system and a sequenced 30-day action plan. No meeting required.</p>
+            <Link href={`/next-step?source=readiness_check&score=${overallScore}&profile=${encodeURIComponent(profile.name)}&exposure=${encodeURIComponent(weakest.name)}`} className="mt-8 inline-block text-xs font-semibold tracking-[0.16em] underline underline-offset-8">EXPLORE THE ACTION REVIEW</Link>
+          </div>
+          <div className="flex items-end justify-start md:justify-end"><button onClick={restart} className="border border-black px-6 py-4 text-xs font-semibold tracking-[0.14em]">RETAKE THE CHECK</button></div>
+        </div>
+      </section>
       {saveStatus === "error" && <p className="mx-auto max-w-[1500px] px-6 py-4 text-sm text-red-700 md:px-10">Your result was calculated, but the anonymous response could not be saved.</p>}
     </main>
   );
