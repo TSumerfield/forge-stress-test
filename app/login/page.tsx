@@ -1,26 +1,26 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { supabase } from '../../lib/supabaseClient';
 
 export default function LoginPage() {
-  const router = useRouter();
-
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [sent, setSent] = useState(false);
   const [error, setError] = useState('');
 
   async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
     setLoading(true);
     setError('');
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
+    const redirectTo = `${window.location.origin}/dashboard`;
+    const { error } = await supabase.auth.signInWithOtp({
+      email: email.trim(),
+      options: {
+        emailRedirectTo: redirectTo,
+        shouldCreateUser: true,
+      },
     });
 
     if (error) {
@@ -29,77 +29,46 @@ export default function LoginPage() {
       return;
     }
 
-    router.push('/dashboard');
+    setSent(true);
+    setLoading(false);
   }
 
   return (
-    <main className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-      <div className="w-full max-w-md bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+    <main className="min-h-screen bg-[#f3f0e8] text-black flex items-center justify-center px-6 py-12">
+      <div className="w-full max-w-lg border border-black/20 bg-[#ece8dd] p-8 md:p-10">
+        <p className="text-xs font-semibold tracking-[0.18em] text-black/45">FORGE ADMINISTRATION</p>
+        <h1 className="mt-5 text-5xl font-semibold uppercase leading-[0.9] tracking-[-0.06em]">Validation dashboard.</h1>
 
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-            FORGE
-          </h1>
-
-          <p className="text-gray-500 mt-2">
-            Admin access
-          </p>
-        </div>
-
-        <form onSubmit={handleLogin} className="space-y-5">
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Email
-            </label>
-
+        {sent ? (
+          <div className="mt-10 border-y border-black py-8">
+            <p className="text-xs font-semibold tracking-[0.16em] text-black/45">MAGIC LINK SENT</p>
+            <h2 className="mt-4 text-2xl font-semibold uppercase tracking-[-0.03em]">Check your inbox.</h2>
+            <p className="mt-4 leading-7 text-black/60">We sent a secure sign-in link to <strong>{email}</strong>. Open it on this device to access the Forge validation dashboard.</p>
+            <button type="button" onClick={() => { setSent(false); setError(''); }} className="mt-7 text-xs font-semibold tracking-[0.14em] underline underline-offset-8">USE A DIFFERENT EMAIL</button>
+          </div>
+        ) : (
+          <form onSubmit={handleLogin} className="mt-10">
+            <label htmlFor="email" className="text-sm font-semibold">Email address</label>
             <input
+              id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
               autoComplete="email"
               placeholder="you@example.com"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="mt-3 w-full border border-black/30 bg-transparent px-4 py-4 outline-none focus:border-black"
             />
-          </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Password
-            </label>
+            {error && <div className="mt-4 border border-red-300 bg-red-50 p-4 text-sm text-red-700">{error}</div>}
 
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              autoComplete="current-password"
-              placeholder="Enter your password"
-              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+            <button type="submit" disabled={loading} className="mt-6 w-full bg-black px-6 py-4 text-xs font-semibold tracking-[0.14em] text-white disabled:opacity-40">
+              {loading ? 'SENDING…' : 'SEND SECURE SIGN-IN LINK'}
+            </button>
+          </form>
+        )}
 
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg p-3">
-              {error}
-            </div>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-semibold py-3 rounded-lg transition-colors"
-          >
-            {loading ? 'Signing in...' : 'Sign in'}
-          </button>
-
-        </form>
-
-        <p className="text-xs text-gray-400 text-center mt-6">
-          Forge administration
-        </p>
-
+        <p className="mt-8 text-xs leading-5 text-black/45">No password required. Access is authenticated through a one-time email link.</p>
       </div>
     </main>
   );
