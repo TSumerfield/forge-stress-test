@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import { supabase } from "../../lib/supabaseClient";
 
 type AreaKey = "governance" | "member" | "competition" | "risk" | "operations" | "data" | "resilience";
 type Area = { key: AreaKey; name: string; description: string };
@@ -41,13 +42,7 @@ const questions: Question[] = [
   { id: 21, area: "resilience", text: "The association can sustain its current model without relying on hidden overtime, goodwill or a few indispensable people." },
 ];
 
-const labels: Record<number, string> = {
-  1: "Not in place",
-  2: "Major gaps",
-  3: "Partly in place",
-  4: "Mostly strong",
-  5: "Consistently strong",
-};
+const labels: Record<number, string> = { 1: "Not in place", 2: "Major gaps", 3: "Partly in place", 4: "Mostly strong", 5: "Consistently strong" };
 
 function profile(score: number) {
   if (score >= 85) return { name: "STRONG ASSOCIATION", text: "The operating foundations are strong. The next opportunity is to deepen member intelligence and demonstrate value more clearly." };
@@ -61,6 +56,8 @@ export default function AssociationHealthCheckPage() {
   const [areaIndex, setAreaIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [finished, setFinished] = useState(false);
+  const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
+  const hasSaved = useRef(false);
 
   const currentArea = areas[areaIndex];
   const currentQuestions = questions.filter((q) => q.area === currentArea.key);
@@ -83,70 +80,60 @@ export default function AssociationHealthCheckPage() {
   const weakest = ranked[ranked.length - 1];
   const resultProfile = profile(overall);
 
+  async function saveAssessment() {
+    if (hasSaved.current) return;
+    hasSaved.current = true;
+    setSaveStatus("saving");
+    const payload = {
+      answers,
+      health_score: overall,
+      profile: resultProfile.name,
+      governance_score: scores.governance,
+      member_value_score: scores.member,
+      competition_quality_score: scores.competition,
+      risk_safeguarding_score: scores.risk,
+      operations_score: scores.operations,
+      data_intelligence_score: scores.data,
+      resilience_strategy_score: scores.resilience,
+      strongest_area: strongest.name,
+      weakest_area: weakest.name,
+    };
+    try {
+      const { error } = await supabase.from("association_health_check_responses").insert([payload]);
+      if (error) throw error;
+      setSaveStatus("saved");
+    } catch (error) {
+      console.error("Association Health Check save error:", error);
+      hasSaved.current = false;
+      setSaveStatus("error");
+    }
+  }
+
+  async function next() {
+    if (!complete) return;
+    if (areaIndex === areas.length - 1) {
+      setFinished(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      await saveAssessment();
+      return;
+    }
+    setAreaIndex((value) => value + 1);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   const Header = ({ label }: { label: string }) => (
-    <header className="border-b border-black/20">
-      <div className="mx-auto flex max-w-[1500px] items-center justify-between px-6 py-6 md:px-10">
-        <Link href="/" className="text-sm font-semibold tracking-[0.18em]">FORGE</Link>
-        <span className="text-right text-[10px] font-semibold tracking-[0.14em] text-black/55 md:text-xs md:tracking-[0.16em]">{label}</span>
-      </div>
-    </header>
+    <header className="border-b border-black/20"><div className="mx-auto flex max-w-[1500px] items-center justify-between px-6 py-6 md:px-10"><Link href="/" className="text-sm font-semibold tracking-[0.18em]">FORGE</Link><span className="text-right text-[10px] font-semibold tracking-[0.14em] text-black/55 md:text-xs md:tracking-[0.16em]">{label}</span></div></header>
   );
 
   if (!started) return (
-    <main className="min-h-screen bg-[#f3f0e8] text-black">
-      <Header label="ASSOCIATION HEALTH CHECK" />
-      <section className="border-b border-black/20">
-        <div className="mx-auto grid min-h-[78vh] max-w-[1500px] md:grid-cols-12">
-          <div className="flex flex-col justify-between border-b border-black/20 px-6 py-12 md:col-span-8 md:border-b-0 md:border-r md:px-10 md:py-16">
-            <div>
-              <p className="mb-8 text-xs font-semibold tracking-[0.18em]">FREE · CONFIDENTIAL · APPROX. 8 MINUTES</p>
-              <h1 className="max-w-[1100px] text-[13vw] font-semibold uppercase leading-[0.82] tracking-[-0.07em] md:text-[6vw]">How strong is<br />your sports<br />association?</h1>
-            </div>
-            <div className="mt-16 max-w-2xl">
-              <p className="text-xl leading-relaxed md:text-2xl">A full competition calendar can hide weak governance, fragile systems and poor visibility of member value.</p>
-              <p className="mt-6 text-base leading-relaxed text-black/65 md:text-lg">Assess seven dimensions of association strength and leave with a clear picture of where the organisation is resilient and where it is exposed.</p>
-              <button onClick={() => setStarted(true)} className="mt-10 bg-black px-7 py-4 text-xs font-semibold tracking-[0.16em] text-white transition-opacity hover:opacity-80">START THE HEALTH CHECK</button>
-            </div>
-          </div>
-          <aside className="px-6 py-12 md:col-span-4 md:px-10 md:py-16">
-            <p className="text-xs font-semibold tracking-[0.18em] text-black/55">YOU WILL RECEIVE</p>
-            <div className="mt-10 divide-y divide-black/20 border-y border-black/20">
-              {["Association Health Score", "Seven dimension scores", "Strongest area", "Primary exposure", "Benchmarking direction"].map((label, index) => <div key={label} className="flex items-center gap-5 py-5"><span className="text-xs font-semibold text-black/40">0{index + 1}</span><span className="text-sm font-semibold uppercase tracking-[0.08em]">{label}</span></div>)}
-            </div>
-            <p className="mt-8 text-sm leading-relaxed text-black/55">Answer based on what is documented, repeatable and consistently experienced by member schools today.</p>
-          </aside>
-        </div>
-      </section>
-    </main>
+    <main className="min-h-screen bg-[#f3f0e8] text-black"><Header label="ASSOCIATION HEALTH CHECK" /><section className="border-b border-black/20"><div className="mx-auto grid min-h-[78vh] max-w-[1500px] md:grid-cols-12"><div className="flex flex-col justify-between border-b border-black/20 px-6 py-12 md:col-span-8 md:border-b-0 md:border-r md:px-10 md:py-16"><div><p className="mb-8 text-xs font-semibold tracking-[0.18em]">FREE · CONFIDENTIAL · APPROX. 8 MINUTES</p><h1 className="max-w-[1100px] text-[13vw] font-semibold uppercase leading-[0.82] tracking-[-0.07em] md:text-[6vw]">How strong is<br />your sports<br />association?</h1></div><div className="mt-16 max-w-2xl"><p className="text-xl leading-relaxed md:text-2xl">A full competition calendar can hide weak governance, fragile systems and poor visibility of member value.</p><p className="mt-6 text-base leading-relaxed text-black/65 md:text-lg">Assess seven dimensions of association strength and leave with a clear picture of where the organisation is resilient and where it is exposed.</p><button onClick={() => setStarted(true)} className="mt-10 bg-black px-7 py-4 text-xs font-semibold tracking-[0.16em] text-white transition-opacity hover:opacity-80">START THE HEALTH CHECK</button></div></div><aside className="px-6 py-12 md:col-span-4 md:px-10 md:py-16"><p className="text-xs font-semibold tracking-[0.18em] text-black/55">YOU WILL RECEIVE</p><div className="mt-10 divide-y divide-black/20 border-y border-black/20">{["Association Health Score", "Seven dimension scores", "Strongest area", "Primary exposure", "Benchmarking direction"].map((label, index) => <div key={label} className="flex items-center gap-5 py-5"><span className="text-xs font-semibold text-black/40">0{index + 1}</span><span className="text-sm font-semibold uppercase tracking-[0.08em]">{label}</span></div>)}</div><p className="mt-8 text-sm leading-relaxed text-black/55">Answer based on what is documented, repeatable and consistently experienced by member schools today.</p></aside></div></section></main>
   );
 
   if (finished) return (
-    <main className="min-h-screen bg-[#f3f0e8] text-black">
-      <Header label="ASSOCIATION HEALTH RESULTS" />
-      <section className="border-b border-black/20">
-        <div className="mx-auto grid max-w-[1500px] md:grid-cols-12">
-          <div className="border-b border-black/20 px-6 py-12 md:col-span-7 md:border-b-0 md:border-r md:px-10 md:py-16">
-            <p className="text-xs font-semibold tracking-[0.18em] text-black/55">ASSOCIATION HEALTH SCORE</p>
-            <div className="mt-6 flex items-end gap-3"><span className="text-[28vw] font-semibold leading-[0.75] tracking-[-0.08em] md:text-[14vw]">{overall}</span><span className="mb-2 text-2xl font-semibold text-black/35 md:mb-4">/100</span></div>
-            <div className="mt-10 border-t border-black pt-7"><p className="text-sm font-semibold tracking-[0.16em]">{resultProfile.name}</p><p className="mt-3 max-w-xl text-xl leading-relaxed">{resultProfile.text}</p></div>
-          </div>
-          <div className="px-6 py-12 md:col-span-5 md:px-10 md:py-16">
-            <p className="text-xs font-semibold tracking-[0.18em] text-black/55">ASSOCIATION PROFILE</p>
-            <div className="mt-8"><p className="text-xs font-semibold tracking-[0.14em] text-black/50">STRONGEST AREA</p><p className="mt-2 text-3xl font-semibold uppercase tracking-[-0.04em]">{strongest.name}</p><p className="mt-2 text-lg">{scores[strongest.key]}</p></div>
-            <div className="mt-10 border-t border-black/20 pt-8"><p className="text-xs font-semibold tracking-[0.14em] text-black/50">PRIMARY EXPOSURE</p><p className="mt-2 text-3xl font-semibold uppercase tracking-[-0.04em]">{weakest.name}</p><p className="mt-2 text-lg">{scores[weakest.key]}</p></div>
-          </div>
-        </div>
-      </section>
-      <section className="border-b border-black/20"><div className="mx-auto max-w-[1500px] px-6 py-12 md:px-10 md:py-16"><p className="text-xs font-semibold tracking-[0.18em] text-black/55">SEVEN DIMENSIONS</p><div className="mt-8 divide-y divide-black/20 border-y border-black/20">{areas.map((area) => <div key={area.key} className="grid gap-3 py-6 md:grid-cols-[260px_1fr_90px] md:items-center"><p className="text-sm font-semibold uppercase tracking-[0.08em]">{area.name}</p><div className="h-2 overflow-hidden bg-black/10"><div className="h-full bg-black" style={{ width: `${scores[area.key]}%` }} /></div><p className="text-right text-2xl font-semibold">{scores[area.key]}</p></div>)}</div></div></section>
-      <section className="bg-black text-[#f3f0e8]"><div className="mx-auto grid max-w-[1500px] gap-10 px-6 py-14 md:grid-cols-12 md:px-10 md:py-20"><div className="md:col-span-8"><p className="text-xs font-semibold tracking-[0.18em] text-white/55">NEXT STEP</p><h2 className="mt-6 max-w-4xl text-5xl font-semibold uppercase leading-[0.9] tracking-[-0.05em] md:text-7xl">Good compared with what?</h2><p className="mt-8 max-w-2xl text-lg leading-8 text-white/65">Forge is developing confidential benchmarking for school-sports associations and member schools. Compare participation, programme breadth, resources, operations and student experience without turning schools into a public ranking.</p></div><div className="flex items-end md:col-span-4 md:justify-end"><Link href="/benchmarking" className="border-b border-white pb-1 text-xs font-semibold uppercase tracking-[0.14em]">Explore Association Benchmarking</Link></div></div></section>
-    </main>
+    <main className="min-h-screen bg-[#f3f0e8] text-black"><Header label="ASSOCIATION HEALTH RESULTS" /><section className="border-b border-black/20"><div className="mx-auto grid max-w-[1500px] md:grid-cols-12"><div className="border-b border-black/20 px-6 py-12 md:col-span-7 md:border-b-0 md:border-r md:px-10 md:py-16"><p className="text-xs font-semibold tracking-[0.18em] text-black/55">ASSOCIATION HEALTH SCORE</p><div className="mt-6 flex items-end gap-3"><span className="text-[28vw] font-semibold leading-[0.75] tracking-[-0.08em] md:text-[14vw]">{overall}</span><span className="mb-2 text-2xl font-semibold text-black/35 md:mb-4">/100</span></div><div className="mt-10 border-t border-black pt-7"><p className="text-sm font-semibold tracking-[0.16em]">{resultProfile.name}</p><p className="mt-3 max-w-xl text-xl leading-relaxed">{resultProfile.text}</p><p className="mt-5 text-xs uppercase tracking-[0.12em] text-black/45">{saveStatus === "saved" ? "Anonymous response saved" : saveStatus === "error" ? "Result calculated · anonymous response could not be saved" : "Saving anonymous response"}</p></div></div><div className="px-6 py-12 md:col-span-5 md:px-10 md:py-16"><p className="text-xs font-semibold tracking-[0.18em] text-black/55">ASSOCIATION PROFILE</p><div className="mt-8"><p className="text-xs font-semibold tracking-[0.14em] text-black/50">STRONGEST AREA</p><p className="mt-2 text-3xl font-semibold uppercase tracking-[-0.04em]">{strongest.name}</p><p className="mt-2 text-lg">{scores[strongest.key]}</p></div><div className="mt-10 border-t border-black/20 pt-8"><p className="text-xs font-semibold tracking-[0.14em] text-black/50">PRIMARY EXPOSURE</p><p className="mt-2 text-3xl font-semibold uppercase tracking-[-0.04em]">{weakest.name}</p><p className="mt-2 text-lg">{scores[weakest.key]}</p></div></div></div></section><section className="border-b border-black/20"><div className="mx-auto max-w-[1500px] px-6 py-12 md:px-10 md:py-16"><p className="text-xs font-semibold tracking-[0.18em] text-black/55">SEVEN DIMENSIONS</p><div className="mt-8 divide-y divide-black/20 border-y border-black/20">{areas.map((area) => <div key={area.key} className="grid gap-3 py-6 md:grid-cols-[260px_1fr_90px] md:items-center"><p className="text-sm font-semibold uppercase tracking-[0.08em]">{area.name}</p><div className="h-2 overflow-hidden bg-black/10"><div className="h-full bg-black" style={{ width: `${scores[area.key]}%` }} /></div><p className="text-right text-2xl font-semibold">{scores[area.key]}</p></div>)}</div></div></section><section className="bg-black text-[#f3f0e8]"><div className="mx-auto grid max-w-[1500px] gap-10 px-6 py-14 md:grid-cols-12 md:px-10 md:py-20"><div className="md:col-span-8"><p className="text-xs font-semibold tracking-[0.18em] text-white/55">NEXT STEP</p><h2 className="mt-6 max-w-4xl text-5xl font-semibold uppercase leading-[0.9] tracking-[-0.05em] md:text-7xl">Good compared with what?</h2><p className="mt-8 max-w-2xl text-lg leading-8 text-white/65">Forge is developing confidential benchmarking for school-sports associations and member schools. Compare participation, programme breadth, resources, operations and student experience without turning schools into a public ranking.</p></div><div className="flex items-end md:col-span-4 md:justify-end"><Link href="/associations" className="border-b border-white pb-1 text-xs font-semibold uppercase tracking-[0.14em]">Explore Association Intelligence</Link></div></div></section></main>
   );
 
   return (
-    <main className="min-h-screen bg-[#f3f0e8] text-black">
-      <Header label={`ASSOCIATION HEALTH CHECK · ${progress}%`} />
-      <section className="border-b border-black/20"><div className="mx-auto max-w-[1500px] px-6 py-8 md:px-10"><div className="h-1 bg-black/10"><div className="h-full bg-black transition-all" style={{ width: `${progress}%` }} /></div></div></section>
-      <section><div className="mx-auto grid max-w-[1500px] md:grid-cols-12"><aside className="border-b border-black/20 px-6 py-10 md:col-span-4 md:min-h-[78vh] md:border-b-0 md:border-r md:px-10 md:py-14"><p className="text-xs font-semibold tracking-[0.16em] text-black/45">0{areaIndex + 1} / 07</p><h1 className="mt-7 text-4xl font-semibold uppercase tracking-[-0.04em] md:text-5xl">{currentArea.name}</h1><p className="mt-5 max-w-sm text-base leading-7 text-black/60">{currentArea.description}</p></aside><div className="px-6 py-10 md:col-span-8 md:px-10 md:py-14">{currentQuestions.map((q) => <div key={q.id} className="border-b border-black/20 py-8 first:pt-0"><p className="max-w-3xl text-xl font-medium leading-8">{q.text}</p><div className="mt-6 grid gap-2 sm:grid-cols-5">{[1,2,3,4,5].map((value) => <button key={value} onClick={() => setAnswers((prev) => ({ ...prev, [q.id]: value }))} className={`border px-3 py-4 text-left text-xs font-semibold uppercase tracking-[0.08em] transition-colors ${answers[q.id] === value ? "border-black bg-black text-white" : "border-black/20 hover:border-black"}`}><span className="block text-lg">{value}</span><span className="mt-1 block text-[10px] leading-4">{labels[value]}</span></button>)}</div></div>)}<div className="mt-10 flex items-center justify-between"><button onClick={() => setAreaIndex((value) => Math.max(0, value - 1))} disabled={areaIndex === 0} className="text-xs font-semibold uppercase tracking-[0.14em] underline underline-offset-8 disabled:opacity-20">Previous</button><button onClick={() => { if (!complete) return; if (areaIndex === areas.length - 1) { setFinished(true); window.scrollTo({ top: 0, behavior: "smooth" }); } else { setAreaIndex((value) => value + 1); window.scrollTo({ top: 0, behavior: "smooth" }); } }} disabled={!complete} className="bg-black px-7 py-4 text-xs font-semibold uppercase tracking-[0.14em] text-white disabled:cursor-not-allowed disabled:opacity-25">{areaIndex === areas.length - 1 ? "See results" : "Next section"}</button></div></div></div></section>
-    </main>
+    <main className="min-h-screen bg-[#f3f0e8] text-black"><Header label={`ASSOCIATION HEALTH CHECK · ${progress}%`} /><section className="border-b border-black/20"><div className="mx-auto max-w-[1500px] px-6 py-8 md:px-10"><div className="h-1 bg-black/10"><div className="h-full bg-black transition-all" style={{ width: `${progress}%` }} /></div></div></section><section><div className="mx-auto grid max-w-[1500px] md:grid-cols-12"><aside className="border-b border-black/20 px-6 py-10 md:col-span-4 md:min-h-[78vh] md:border-b-0 md:border-r md:px-10 md:py-14"><p className="text-xs font-semibold tracking-[0.16em] text-black/45">0{areaIndex + 1} / 07</p><h1 className="mt-7 text-4xl font-semibold uppercase tracking-[-0.04em] md:text-5xl">{currentArea.name}</h1><p className="mt-5 max-w-sm text-base leading-7 text-black/60">{currentArea.description}</p></aside><div className="px-6 py-10 md:col-span-8 md:px-10 md:py-14">{currentQuestions.map((q) => <div key={q.id} className="border-b border-black/20 py-8 first:pt-0"><p className="max-w-3xl text-xl font-medium leading-8">{q.text}</p><div className="mt-6 grid gap-2 sm:grid-cols-5">{[1,2,3,4,5].map((value) => <button key={value} onClick={() => setAnswers((prev) => ({ ...prev, [q.id]: value }))} className={`border px-3 py-4 text-left text-xs font-semibold uppercase tracking-[0.08em] transition-colors ${answers[q.id] === value ? "border-black bg-black text-white" : "border-black/20 hover:border-black"}`}><span className="block text-lg">{value}</span><span className="mt-2 block text-[10px] leading-4 opacity-70">{labels[value]}</span></button>)}</div></div>)}<div className="mt-10 flex items-center justify-between gap-4"><button disabled={areaIndex === 0} onClick={() => setAreaIndex((value) => Math.max(0, value - 1))} className="text-xs font-semibold uppercase tracking-[0.14em] disabled:opacity-30">Previous</button><button disabled={!complete} onClick={() => void next()} className="bg-black px-7 py-4 text-xs font-semibold uppercase tracking-[0.14em] text-white disabled:opacity-25">{areaIndex === areas.length - 1 ? "See results" : "Next area"}</button></div></div></div></section></main>
   );
 }
