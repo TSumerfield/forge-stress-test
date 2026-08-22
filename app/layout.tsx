@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s | Forge",
   },
   description:
-    "Forge brings together evidence, independent judgement and practical systems for leaders responsible for school sport.",
+    "Forge brings together evidence, independent analysis and practical systems for leaders responsible for school sports and athletics.",
 };
 
 export default function RootLayout({

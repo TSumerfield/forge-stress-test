@@ -54,10 +54,10 @@ const dimensions: Dimension[] = [
   },
   {
     key: "programme",
-    name: "Programme & Pathways",
-    shortName: "Programme",
+    name: "Opportunities & Pathways",
+    shortName: "Opportunities",
     description:
-      "Intentional programme design, progression and alignment with student need.",
+      "Intentional opportunity design, progression and alignment with student need.",
   },
   {
     key: "evidence",
@@ -71,7 +71,7 @@ const dimensions: Dimension[] = [
     name: "Resilience & Continuity",
     shortName: "Resilience",
     description:
-      "How well the department can survive absence, turnover and leadership change.",
+      "How well the operation can survive absence, turnover and leadership change.",
   },
 ];
 
@@ -79,22 +79,22 @@ const questions: Question[] = [
   {
     id: 1,
     dimension: "leadership",
-    text: "Our department has no more than three to five priorities that staff could identify without referring to a planning document.",
+    text: "Our sports operation has no more than three to five priorities that staff could identify without referring to a planning document.",
   },
   {
     id: 2,
     dimension: "leadership",
-    text: "Staff can explain what success for the department means beyond delivering the calendar of sport.",
+    text: "Staff can explain what success means beyond delivering the sports calendar.",
   },
   {
     id: 3,
     dimension: "leadership",
-    text: "For significant areas of department activity, it is clear who has authority to make the final decision.",
+    text: "For significant areas of activity, it is clear who has authority to make the final decision.",
   },
   {
     id: 4,
     dimension: "leadership",
-    text: "In the last 12 months, we have stopped, reduced or deprioritised activity because it did not support our priorities.",
+    text: "In the last 12 months, we have stopped, reduced or given lower priority to activity that did not support our goals.",
   },
   {
     id: 5,
@@ -114,7 +114,7 @@ const questions: Question[] = [
   {
     id: 8,
     dimension: "people",
-    text: "In the last 12 months, performance or behaviour below the expected standard has been directly addressed.",
+    text: "In the last 12 months, performance or conduct below the expected standard has been directly addressed.",
   },
   {
     id: 9,
@@ -124,7 +124,7 @@ const questions: Question[] = [
   {
     id: 10,
     dimension: "people",
-    text: "Staff can challenge a department decision or existing practice without creating unnecessary personal conflict.",
+    text: "Staff can challenge a leadership decision or existing practice without creating unnecessary personal conflict.",
   },
   {
     id: 11,
@@ -154,7 +154,7 @@ const questions: Question[] = [
   {
     id: 16,
     dimension: "programme",
-    text: "We can clearly explain why each major part of our sporting programme exists.",
+    text: "We can clearly explain why each major part of our sports and athletics offering exists.",
   },
   {
     id: 17,
@@ -174,12 +174,12 @@ const questions: Question[] = [
   {
     id: 20,
     dimension: "programme",
-    text: "Within the last 12 months, we have materially changed, added or removed part of the programme because student or school needs justified it.",
+    text: "Within the last 12 months, we have materially changed, added or removed an opportunity because student or school needs justified it.",
   },
   {
     id: 21,
     dimension: "evidence",
-    text: "We track a small number of measures that tell us whether the sports programme is achieving its intended outcomes.",
+    text: "We track a small number of measures that tell us whether our sports and athletics offering is achieving its intended outcomes.",
   },
   {
     id: 22,
@@ -194,7 +194,7 @@ const questions: Question[] = [
   {
     id: 24,
     dimension: "evidence",
-    text: "In the last 12 months, feedback or evidence has caused us to materially change a department practice.",
+    text: "In the last 12 months, feedback or evidence has caused us to materially change an operating practice.",
   },
   {
     id: 25,
@@ -204,7 +204,7 @@ const questions: Question[] = [
   {
     id: 26,
     dimension: "resilience",
-    text: "If a key department leader left tomorrow, another person could identify their critical recurring responsibilities.",
+    text: "If a key sports leader left tomorrow, another person could identify their critical recurring responsibilities.",
   },
   {
     id: 27,
@@ -214,17 +214,17 @@ const questions: Question[] = [
   {
     id: 28,
     dimension: "resilience",
-    text: "Important external relationships, commitments and recurring obligations are recorded somewhere accessible to the department.",
+    text: "Important external relationships, commitments and recurring obligations are recorded somewhere accessible to the wider team.",
   },
   {
     id: 29,
     dimension: "resilience",
-    text: "No single individual holds operational knowledge whose loss would significantly disrupt the department.",
+    text: "No single individual holds operational knowledge whose loss would significantly disrupt delivery.",
   },
   {
     id: 30,
     dimension: "resilience",
-    text: "A new department leader could understand the department's major systems, priorities and key decisions without reconstructing them primarily through conversations.",
+    text: "A new sports leader could understand the operation's major systems, priorities and key decisions without reconstructing them primarily through conversations.",
   },
 ];
 
@@ -238,24 +238,24 @@ const responseLabels: Record<number, string> = {
 
 const recommendations: Record<DimensionKey, string> = {
   leadership:
-    "Choose the three most important priorities for the next 12 months. For each, define what success means, who owns it and what work will be deprioritised to make room.",
+    "Choose the three most important priorities for the next 12 months. For each, define what success means, who owns it and what work will receive lower priority to make room.",
   people:
     "Identify the five responsibilities where ownership is currently most blurred. Give each one a single accountable owner and define the outcome they are responsible for.",
   systems:
     "Choose one recurring operational process that currently relies on memory or individual knowledge. Document the trigger, owner, steps, deadline and handover point.",
   programme:
-    "Review every major part of the sporting programme against three questions: who is it for, what outcome is it designed to produce, and what evidence justifies keeping it?",
+    "Review every major opportunity against three questions: who is it for, what outcome is it designed to produce, and what evidence justifies keeping it?",
   evidence:
-    "For the next significant department change, define the expected outcome, two or three measures of success and a review date before implementation begins.",
+    "For the next significant operational change, define the expected outcome, two or three measures of success and a review date before implementation begins.",
   resilience:
     "Identify the five areas that would be most disrupted if a key leader left tomorrow. Capture the owner, process, critical relationships, recurring commitments and handover information for each.",
 };
 
 const nextStepOptions = [
-  "See how my department compares with similar departments",
+  "See how my operation compares with similar schools",
   "Get practical tools to strengthen this area",
   "Understand this weakness in more depth",
-  "Get an independent review of my department",
+  "Get an independent review of my sports operation",
   "Nothing else right now",
 ];
 
@@ -263,7 +263,7 @@ function getProfile(score: number) {
   if (score >= 80) {
     return {
       name: "SYSTEMIC",
-      description: "Strong systems with relatively low organisational fragility.",
+      description: "Strong systems with relatively low operating fragility.",
     };
   }
 
@@ -312,7 +312,7 @@ function getFragilitySignals(answers: Record<number, number>): FragilitySignal[]
     signals.push({
       title: "Strategic overload",
       description:
-        "The department may be adding work faster than it removes or deprioritises it.",
+        "The operation may be adding work faster than it removes or reduces it.",
     });
   }
 
@@ -326,9 +326,9 @@ function getFragilitySignals(answers: Record<number, number>): FragilitySignal[]
 
   if ((answers[18] ?? 5) <= 2 && (answers[20] ?? 5) <= 2) {
     signals.push({
-      title: "Programme inertia",
+      title: "Opportunity inertia",
       description:
-        "Parts of the programme may be continuing because of history or circumstance rather than current need.",
+        "Some opportunities may be continuing because of history or circumstance rather than current need.",
     });
   }
 
@@ -539,7 +539,7 @@ export default function StressTestPage() {
                 FORGE
               </Link>
               <span className="text-xs font-semibold tracking-[0.16em] text-black/55">
-                SPORT DEPARTMENT STRESS TEST
+                SCHOOL SPORTS SYSTEMS STRESS TEST
               </span>
             </div>
           </div>
@@ -557,17 +557,17 @@ export default function StressTestPage() {
                   <br />
                   test your
                   <br />
-                  department.
+                  systems.
                 </h1>
               </div>
 
               <div className="mt-16 max-w-2xl">
                 <p className="text-xl leading-relaxed md:text-2xl">
-                  Strong sport departments are not just busy or successful. They
+                  Strong sports and athletics operations are not just busy or successful. They
                   have systems that survive pressure, change and turnover.
                 </p>
                 <p className="mt-6 text-base leading-relaxed text-black/65 md:text-lg">
-                  Forge measures six dimensions of departmental strength to expose
+                  Forge measures six dimensions of operating strength to expose
                   hidden fragility, identify your strongest systems and show where
                   improvement will create the most leverage.
                 </p>
@@ -602,7 +602,7 @@ export default function StressTestPage() {
                 ))}
               </div>
               <p className="mt-8 text-sm leading-relaxed text-black/55">
-                Answer based on how the department actually operates today, not how
+                Answer based on how the sports operation actually works today, not how
                 it is intended to operate.
               </p>
             </div>
@@ -652,7 +652,7 @@ export default function StressTestPage() {
 
             <div className="px-6 py-12 md:col-span-5 md:px-10 md:py-16">
               <p className="text-xs font-semibold tracking-[0.18em] text-black/55">
-                DEPARTMENT PROFILE
+                OPERATING PROFILE
               </p>
               <div className="mt-8">
                 <p className="text-xs font-semibold tracking-[0.14em] text-black/50">
@@ -806,7 +806,7 @@ export default function StressTestPage() {
                       htmlFor="biggest-challenge"
                       className="text-xs font-semibold tracking-[0.14em] text-black/50"
                     >
-                      02 · WHAT IS THE BIGGEST OPERATIONAL CHALLENGE IN YOUR DEPARTMENT RIGHT NOW?
+                      02 · WHAT IS THE BIGGEST OPERATIONAL CHALLENGE IN YOUR SCHOOL SPORTS SETTING RIGHT NOW?
                     </label>
                     <textarea
                       id="biggest-challenge"
@@ -963,7 +963,7 @@ export default function StressTestPage() {
 
           <div className="px-6 py-10 md:col-span-8 md:px-10 md:py-14">
             <p className="mb-10 max-w-2xl text-sm leading-relaxed text-black/55">
-              Choose the answer that best describes how the department actually
+              Choose the answer that best describes how the sports operation actually
               operates today.
             </p>
             <div className="space-y-12">

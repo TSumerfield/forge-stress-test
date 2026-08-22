@@ -231,7 +231,7 @@ export default function SubmitPage() {
               </p>
 
               <h2 className="text-xl font-bold text-gray-900">
-                Department capacity
+                Operating capacity
               </h2>
             </div>
 
@@ -262,7 +262,7 @@ export default function SubmitPage() {
 
               <textarea
                 name="facility_constraint"
-                placeholder="What most limits the department?"
+                placeholder="What most limits the sports operation?"
                 className="w-full border border-gray-300 p-3 rounded-lg min-h-[90px]"
               />
             </div>

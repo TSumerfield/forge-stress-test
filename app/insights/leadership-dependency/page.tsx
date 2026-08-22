@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Leadership Dependency | Forge Insights",
-  description: "A practical Forge field note on how capable sports leaders can accidentally become the operating system of their department.",
+  description: "A practical Forge field note on how capable sports leaders can accidentally become the operating system of their school.",
 };
 
 
@@ -23,7 +23,7 @@ export default function LeadershipDependencyInsight() {
             <div className="lg:col-span-4"><p className="forge-eyebrow">Forge insight 001 / Leadership dependency</p></div>
             <div className="lg:col-span-8">
               <h1 className="forge-display max-w-5xl text-[clamp(3.7rem,7vw,7rem)] text-[var(--forge-forest-deep)]">When one capable leader becomes the operating system.</h1>
-              <p className="mt-10 max-w-3xl text-xl leading-9 text-[rgba(17,19,17,0.68)]">A department can look efficient precisely because one person is absorbing the complexity. That is performance, but it is not resilience.</p>
+              <p className="mt-10 max-w-3xl text-xl leading-9 text-[rgba(17,19,17,0.68)]">A sports operation can look efficient precisely because one person is absorbing the complexity. That is performance, but it is not resilience.</p>
             </div>
           </div>
         </section>
@@ -32,7 +32,7 @@ export default function LeadershipDependencyInsight() {
           <div className="forge-container grid gap-12 lg:grid-cols-12">
             <aside className="lg:col-span-4"><p className="forge-eyebrow">The pattern</p></aside>
             <div className="space-y-8 lg:col-span-7">
-              <p className="text-lg leading-9">Leadership dependency develops when important decisions, relationships, routines and exceptions repeatedly route through the same person. The leader becomes the fastest way to get things done, so the department learns to use them as infrastructure.</p>
+              <p className="text-lg leading-9">Leadership dependency develops when important decisions, relationships, routines and exceptions repeatedly route through the same person. The leader becomes the fastest way to get things done, so the wider operation learns to use them as infrastructure.</p>
               <p className="text-lg leading-9">The warning sign is not simply that the leader is busy. It is that normal delivery becomes slower, less certain or less consistent when that person is absent.</p>
               <div className="border-l-2 border-[var(--forge-bronze)] pl-7"><p className="forge-heading text-3xl text-[var(--forge-forest-deep)]">The test: if the leader disappeared for two weeks, what would stop, stall or require guessing?</p></div>
             </div>
@@ -43,7 +43,7 @@ export default function LeadershipDependencyInsight() {
           <div className="forge-container grid gap-12 lg:grid-cols-12">
             <div className="lg:col-span-4"><p className="forge-eyebrow">Four signals</p></div>
             <div className="grid gap-px bg-[rgba(185,134,74,0.28)] md:grid-cols-2 lg:col-span-8">
-              {[['01','Routine approvals climb upward','Staff wait for the leader to resolve decisions that should have clear owners or rules.'],['02','Knowledge lives in memory','Contacts, exceptions, timelines and judgement are known rather than captured.'],['03','Problems are rescued, not removed','The same operational failures recur because capable people keep absorbing them.'],['04','Absence creates uncertainty','People can execute tasks, but hesitate when the situation falls outside the normal script.']].map(([n,t,x]) => <div key={n} className="bg-[var(--forge-forest)] p-8"><span className="forge-eyebrow">{n}</span><h2 className="forge-heading mt-8 text-3xl">{t}</h2><p className="mt-5 text-sm leading-7 text-[rgba(246,244,238,0.7)]">{x}</p></div>)}
+              {[['01','Routine approvals climb upward','Staff wait for the leader to resolve decisions that should have clear owners or rules.'],['02','Knowledge lives in memory','Contacts, exceptions, timelines and decision logic are known rather than captured.'],['03','Problems are rescued, not removed','The same operational failures recur because capable people keep absorbing them.'],['04','Absence creates uncertainty','People can execute tasks, but hesitate when the situation falls outside the normal script.']].map(([n,t,x]) => <div key={n} className="bg-[var(--forge-forest)] p-8"><span className="forge-eyebrow">{n}</span><h2 className="forge-heading mt-8 text-3xl">{t}</h2><p className="mt-5 text-sm leading-7 text-[rgba(246,244,238,0.7)]">{x}</p></div>)}
             </div>
           </div>
         </section>
@@ -59,7 +59,7 @@ export default function LeadershipDependencyInsight() {
           </div>
         </section>
 
-        <section className="forge-dark forge-section"><div className="forge-container grid gap-10 lg:grid-cols-12 lg:items-end"><div className="lg:col-span-8"><p className="forge-eyebrow">Measure the system</p><h2 className="forge-heading mt-7 text-5xl md:text-7xl">How dependent is your department?</h2></div><div className="lg:col-span-4 lg:text-right"><Link href="/stress-test" className="forge-button forge-button-primary">Take the stress test</Link></div></div></section>
+        <section className="forge-dark forge-section"><div className="forge-container grid gap-10 lg:grid-cols-12 lg:items-end"><div className="lg:col-span-8"><p className="forge-eyebrow">Measure the system</p><h2 className="forge-heading mt-7 text-5xl md:text-7xl">How dependent is your operation?</h2></div><div className="lg:col-span-4 lg:text-right"><Link href="/stress-test" className="forge-button forge-button-primary">Take the stress test</Link></div></div></section>
       </article>
     </main>
   );

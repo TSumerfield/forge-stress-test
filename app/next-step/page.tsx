@@ -92,7 +92,7 @@ export default function NextStepPage() {
             <a href="#interest" className="mt-10 w-fit text-xs font-semibold tracking-[0.14em] underline underline-offset-8">REGISTER INTEREST</a>
           </article>
           <article className="flex min-h-[390px] flex-col justify-between p-8 lg:p-10">
-            <div><p className="text-xs font-semibold tracking-[0.16em] text-black/45">03 · GO DEEPER</p><h2 className="mt-8 text-4xl font-semibold uppercase tracking-[-0.05em]">Examine the system.</h2><p className="mt-5 leading-7 text-black/60">Use the Department Stress Test to expose the structural conditions beneath immediate readiness gaps.</p></div>
+            <div><p className="text-xs font-semibold tracking-[0.16em] text-black/45">03 · GO DEEPER</p><h2 className="mt-8 text-4xl font-semibold uppercase tracking-[-0.05em]">Examine the system.</h2><p className="mt-5 leading-7 text-black/60">Use the School Sports Systems Stress Test to expose the structural conditions beneath immediate readiness gaps.</p></div>
             <Link href="/stress-test" className="mt-10 w-fit text-xs font-semibold tracking-[0.14em] underline underline-offset-8">TAKE THE STRESS TEST</Link>
           </article>
         </div>
@@ -103,7 +103,7 @@ export default function NextStepPage() {
           <div className="border-b border-black/20 px-6 py-12 md:col-span-4 md:border-b-0 md:border-r md:px-10 md:py-16">
             <p className="text-xs font-semibold tracking-[0.16em] text-black/45">PROPOSED PILOT</p>
             <h2 className="mt-6 text-5xl font-semibold uppercase leading-[0.92] tracking-[-0.06em]">Forge Readiness Action Review.</h2>
-            <p className="mt-6 leading-7 text-black/60">A concise independent review of your diagnostic, selected documents and immediate risks, returned as a prioritised 30-day action plan.</p>
+            <p className="mt-6 leading-7 text-black/60">A concise independent review of your diagnostic, selected documents and immediate risks, returned as a sequenced 30-day action plan.</p>
             <p className="mt-5 text-sm leading-6 text-black/50">Registering interest is not a purchase or commitment. It helps determine whether Forge should build this offer.</p>
           </div>
           <div className="px-6 py-12 md:col-span-8 md:px-10 md:py-16">

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Systems | Forge",
-  description: "Practical operating frameworks for stronger school sport departments.",
+  description: "Practical operating frameworks for stronger sports and athletics operations in schools.",
 };
 
 const ForgeMark = ({ className = "" }: { className?: string }) => (
@@ -13,11 +13,11 @@ const ForgeMark = ({ className = "" }: { className?: string }) => (
 
 const systems = [
   ["01", "Leadership & ownership", "Decision rights, priorities, role clarity and accountability."],
-  ["02", "Coaching standards", "Shared expectations that protect programme quality across teams and coaches."],
-  ["03", "Operations", "Repeatable workflows for fixtures, events, communication and delivery."],
+  ["02", "Coaching standards", "Shared expectations that protect quality across teams, sports and coaches."],
+  ["03", "Operations", "Repeatable workflows for games, competitions, events, communication and delivery."],
   ["04", "Knowledge & handover", "Ways to capture critical knowledge so continuity does not depend on memory."],
   ["05", "Review & improvement", "Simple review rhythms that turn experience into better future decisions."],
-  ["06", "Capacity & resilience", "Protocols that reduce bottlenecks and protect the department under pressure."],
+  ["06", "Capacity & resilience", "Protocols that reduce bottlenecks and protect the operation under pressure."],
 ];
 
 export default function SystemsPage() {
@@ -47,7 +47,7 @@ export default function SystemsPage() {
           <div className="lg:col-span-4 lg:self-start">
             <p className="forge-eyebrow">Forge systems</p>
             <p className="mt-6 max-w-xs text-sm leading-6 text-[rgba(17,19,17,0.58)]">
-              Practical operating IP for recurring department problems.
+              Practical operating IP for recurring problems in school sports and athletics.
             </p>
           </div>
           <div className="lg:col-span-8">

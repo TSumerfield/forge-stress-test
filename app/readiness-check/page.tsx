@@ -10,9 +10,9 @@ type Question = { id: number; area: AreaKey; text: string };
 
 const areas: Area[] = [
   { key: "people", name: "People & Ownership", shortName: "People", description: "Roles, cover, induction and accountable ownership." },
-  { key: "programme", name: "Programme & Calendar", shortName: "Programme", description: "A coherent programme with confirmed dates and dependencies." },
+  { key: "programme", name: "Opportunities & Calendar", shortName: "Opportunities", description: "A coherent sports offering with confirmed dates and dependencies." },
   { key: "operations", name: "Facilities & Equipment", shortName: "Operations", description: "Spaces, equipment, bookings and suppliers ready for delivery." },
-  { key: "safety", name: "Safety & Contingencies", shortName: "Safety", description: "Medical, safeguarding, risk and disruption plans that work." },
+  { key: "safety", name: "Safety & Contingencies", shortName: "Safety", description: "Medical, student protection, risk and disruption plans that work." },
   { key: "communication", name: "Communication & Expectations", shortName: "Communication", description: "Clear information for staff, students and families." },
   { key: "capacity", name: "Workload & Pressure Points", shortName: "Capacity", description: "A manageable launch with visible bottlenecks and trade-offs." },
 ];
@@ -21,20 +21,20 @@ const questions: Question[] = [
   { id: 1, area: "people", text: "Every major activity in the opening six weeks has one clearly accountable owner." },
   { id: 2, area: "people", text: "New and returning staff understand their responsibilities, decision rights and immediate priorities." },
   { id: 3, area: "people", text: "Critical responsibilities have realistic cover if a key person is unexpectedly absent." },
-  { id: 4, area: "programme", text: "The opening-term calendar is confirmed, accessible and checked for major clashes." },
-  { id: 5, area: "programme", text: "Trials, team selection, CCAs and competition pathways have clear dates, criteria and owners." },
+  { id: 4, area: "programme", text: "The opening-phase calendar is confirmed, accessible and checked for major conflicts." },
+  { id: 5, area: "programme", text: "Tryouts or trials, team selection, clubs, activities and competition pathways have clear dates, criteria and owners." },
   { id: 6, area: "programme", text: "Dependencies involving other departments, schools or external providers have been confirmed." },
   { id: 7, area: "operations", text: "Facilities and recurring bookings are confirmed for the opening phase of the year." },
   { id: 8, area: "operations", text: "Essential equipment has been checked and shortages have an owner, budget and resolution date." },
-  { id: 9, area: "operations", text: "Transport, officials, venues and key suppliers are confirmed where they are already required." },
+  { id: 9, area: "operations", text: "Travel, transportation, officials, venues and key suppliers are confirmed where they are already required." },
   { id: 10, area: "safety", text: "Risk assessments, medical information and emergency procedures are current and accessible." },
-  { id: 11, area: "safety", text: "Staff understand the reporting and escalation process for injuries, safeguarding and serious incidents." },
-  { id: 12, area: "safety", text: "Credible contingencies exist for weather, facility loss, transport failure and staff absence." },
+  { id: 11, area: "safety", text: "Staff understand the reporting and escalation process for injuries, student protection concerns and serious incidents." },
+  { id: 12, area: "safety", text: "Credible contingencies exist for weather, facility loss, transportation failure and staff absence." },
   { id: 13, area: "communication", text: "Staff know what must be communicated, by whom, through which channel and by when." },
   { id: 14, area: "communication", text: "Students and families can easily find the information needed for the opening weeks." },
   { id: 15, area: "communication", text: "Likely points of confusion or complaint have been anticipated and addressed in advance." },
   { id: 16, area: "capacity", text: "The opening six weeks are deliverable without relying on sustained overtime or repeated last-minute rescue." },
-  { id: 17, area: "capacity", text: "The department has identified its most congested periods and reduced, moved or delegated work where necessary." },
+  { id: 17, area: "capacity", text: "The sports operation has identified its most congested periods and reduced, moved or delegated work where necessary." },
   { id: 18, area: "capacity", text: "Leaders have protected time to resolve emerging issues rather than carrying a completely full delivery load." },
 ];
 
@@ -42,9 +42,9 @@ const labels: Record<number, string> = { 1: "Not in place", 2: "Major gaps", 3: 
 
 const actions: Record<AreaKey, string[]> = {
   people: ["Assign one accountable owner to every major opening-phase activity.", "Confirm cover for the three responsibilities most vulnerable to absence.", "Issue a one-page responsibilities and decision-rights brief to staff."],
-  programme: ["Run a six-week calendar collision check with all key dependencies visible.", "Confirm dates, criteria and ownership for trials, teams and activities.", "Close outstanding commitments with partner schools and providers."],
-  operations: ["Complete a facilities, bookings and essential-equipment readiness walk.", "Give every shortage a named owner, budget decision and deadline.", "Reconfirm transport, venues, officials and suppliers already required."],
-  safety: ["Verify that risk, medical and emergency information is current and accessible.", "Brief staff on injury, safeguarding and serious-incident escalation.", "Write the response for the three most credible opening-phase disruptions."],
+  programme: ["Run a six-week calendar collision check with all key dependencies visible.", "Confirm dates, criteria and ownership for tryouts or trials, teams and activities.", "Close outstanding commitments with partner schools and providers."],
+  operations: ["Complete a facilities, bookings and essential-equipment readiness walk.", "Give every shortage a named owner, budget decision and deadline.", "Reconfirm travel, transportation, venues, officials and suppliers already required."],
+  safety: ["Verify that risk, medical and emergency information is current and accessible.", "Brief staff on injury, student protection and serious-incident escalation.", "Write the response for the three most credible opening-phase disruptions."],
   communication: ["Create one communication map covering audience, message, owner, channel and date.", "Publish one reliable source of opening-week information for families.", "Pre-empt the three questions or complaints most likely to consume staff time."],
   capacity: ["Map the opening six weeks and mark workload peaks before they arrive.", "Remove, delay or delegate at least one low-value commitment in each peak period.", "Protect leadership capacity for exceptions, decisions and emerging problems."],
 };
@@ -141,17 +141,17 @@ export default function ReadinessCheckPage() {
 
   if (!started) return (
     <main className="min-h-screen bg-[#f3f0e8] text-black">
-      <Header label="SPORT YEAR READINESS CHECK" />
+      <Header label="SCHOOL SPORTS READINESS CHECK" />
       <section className="border-b border-black/20">
         <div className="mx-auto grid min-h-[78vh] max-w-[1500px] md:grid-cols-12">
           <div className="flex flex-col justify-between border-b border-black/20 px-6 py-12 md:col-span-8 md:border-b-0 md:border-r md:px-10 md:py-16">
             <div>
               <p className="mb-8 text-xs font-semibold tracking-[0.18em]">FREE · CONFIDENTIAL · APPROX. 5 MINUTES</p>
-              <h1 className="max-w-[1050px] text-[14vw] font-semibold uppercase leading-[0.82] tracking-[-0.07em] md:text-[6.5vw]">Ready for<br />the year<br />ahead?</h1>
+              <h1 className="max-w-[1050px] text-[14vw] font-semibold uppercase leading-[0.82] tracking-[-0.07em] md:text-[6.5vw]">Ready for<br />what comes<br />next?</h1>
             </div>
             <div className="mt-16 max-w-2xl">
-              <p className="text-xl leading-relaxed md:text-2xl">A full calendar is not the same as a ready department.</p>
-              <p className="mt-6 text-base leading-relaxed text-black/65 md:text-lg">Check the six operational conditions most likely to shape your opening weeks. Find the gaps, protect capacity and leave with three priorities.</p>
+              <p className="text-xl leading-relaxed md:text-2xl">A full calendar is not the same as a ready sports operation.</p>
+              <p className="mt-6 text-base leading-relaxed text-black/65 md:text-lg">Check the six operational conditions most likely to shape the start of your year or season. Find the gaps, protect capacity and leave with three priorities.</p>
               <button onClick={() => setStarted(true)} className="mt-10 bg-black px-7 py-4 text-xs font-semibold tracking-[0.16em] text-white transition-opacity hover:opacity-80">CHECK YOUR READINESS</button>
             </div>
           </div>
