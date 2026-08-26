@@ -132,7 +132,8 @@ export default function ReviewQueuePage() {
   const resolved = predictions.filter(p => p.resolution_status === 'resolved' && typeof p.brier_score === 'number');
   const avgBrier = resolved.length ? Number((resolved.reduce((sum, p) => sum + (p.brier_score || 0), 0) / resolved.length).toFixed(3)) : null;
   const resolutionRate = predictions.length ? Math.round((predictions.filter(p => p.resolution_status === 'resolved').length / predictions.length) * 100) : 0;
-  const avgProcess = reviews.length ? Math.round(reviews.reduce((s, r) => s + (r.process_quality_score || 0), 0) / reviews.filter(r => r.process_quality_score !== null).length || 0) : null;
+  const scoredReviews = reviews.filter(r => r.process_quality_score !== null);
+  const avgProcess = scoredReviews.length ? Math.round(scoredReviews.reduce((s, r) => s + (r.process_quality_score || 0), 0) / scoredReviews.length) : null;
 
   if (loading) return <main className="flex min-h-screen items-center justify-center bg-forge-ivory-50"><p>Loading review queue...</p></main>;
 
@@ -140,7 +141,7 @@ export default function ReviewQueuePage() {
     <header className="border-b border-forge-ivory-200 bg-forge-forest-950 text-white">
       <div className="mx-auto flex max-w-forge items-center justify-between px-5 py-5 md:px-8">
         <div><a href="/" className="font-serif text-2xl">FORGE</a><p className="mt-1 text-xs uppercase tracking-forge text-forge-bronze-300">Decision review queue</p></div>
-        <div className="flex gap-5 text-sm"><a href="/decision-ledger" className="underline underline-offset-4">Decision Ledger</a><a href="/dashboard" className="underline underline-offset-4">Dashboard</a></div>
+        <div className="flex gap-5 text-sm"><a href="/decision-ledger" className="underline underline-offset-4">Decision Ledger</a><a href="/calibration" className="underline underline-offset-4">Calibration</a><a href="/dashboard" className="underline underline-offset-4">Dashboard</a></div>
       </div>
     </header>
 
@@ -179,7 +180,7 @@ export default function ReviewQueuePage() {
             const latestOutcome = outcomes.find(o => o.decision_id === d.id);
             const openPredictions = predictions.filter(p => p.decision_id === d.id && p.resolution_status !== 'resolved').length;
             return <div key={d.id} className="py-5 first:pt-0">
-              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"><div><p className="text-xs uppercase tracking-forge text-forge-stone-500">{d.domain || 'General'} · review due {d.review_date}</p><h3 className="mt-1 font-serif text-2xl text-forge-forest-950">{d.title}</h3><p className="mt-2 max-w-2xl text-sm text-forge-stone-600">Expected: {d.expected_result || 'Not recorded'}</p>{latestOutcome && <p className="mt-2 text-sm text-forge-stone-700"><strong>Latest outcome:</strong> {latestOutcome.outcome_summary}</p>}</div><div className="shrink-0 text-left md:text-right"><p className="text-xs uppercase tracking-forge text-forge-stone-500">Open forecasts</p><p className="mt-1 font-serif text-3xl">{openPredictions}</p><a href={`/decision-ledger`} className="mt-2 inline-block border-b border-forge-forest-900 text-sm font-semibold">Open in Ledger</a></div></div>
+              <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between"><div><p className="text-xs uppercase tracking-forge text-forge-stone-500">{d.domain || 'General'} · review due {d.review_date}</p><h3 className="mt-1 font-serif text-2xl text-forge-forest-950">{d.title}</h3><p className="mt-2 max-w-2xl text-sm text-forge-stone-600">Expected: {d.expected_result || 'Not recorded'}</p>{latestOutcome && <p className="mt-2 text-sm text-forge-stone-700"><strong>Latest outcome:</strong> {latestOutcome.outcome_summary}</p>}</div><div className="shrink-0 text-left md:text-right"><p className="text-xs uppercase tracking-forge text-forge-stone-500">Open forecasts</p><p className="mt-1 font-serif text-3xl">{openPredictions}</p><a href="/decision-ledger" className="mt-2 inline-block border-b border-forge-forest-900 text-sm font-semibold">Open in Ledger</a></div></div>
             </div>;
           })}
         </div>
@@ -187,7 +188,7 @@ export default function ReviewQueuePage() {
 
       <section className="mt-8 grid gap-6 lg:grid-cols-2">
         <div className="border border-forge-ivory-200 bg-white p-6 md:p-8"><p className="text-xs font-semibold uppercase tracking-forge text-forge-bronze-600">Calibration history</p><h2 className="mt-2 font-serif text-2xl text-forge-forest-950">Resolved forecasts</h2><div className="mt-5 divide-y divide-forge-ivory-200">{resolved.slice(0,10).map(p=><div key={p.id} className="py-4"><div className="flex justify-between gap-4"><span className="text-sm">{p.prediction}</span><span className="font-semibold">{p.brier_score?.toFixed(3)}</span></div><p className="mt-1 text-xs text-forge-stone-500">{p.probability}% forecast · {p.resolved_result ? 'occurred' : 'did not occur'}</p></div>)}{resolved.length===0&&<p className="py-4 text-sm text-forge-stone-500">Resolve forecasts to establish a calibration baseline.</p>}</div></div>
-        <div className="border border-forge-forest-800 bg-forge-forest-950 p-6 text-white md:p-8"><p className="text-xs font-semibold uppercase tracking-forge text-forge-bronze-300">Decision quality</p><h2 className="mt-2 font-serif text-2xl">Separate process from luck.</h2><p className="mt-4 text-sm leading-6 text-white/65">A good decision can produce a bad outcome and a poor decision can get lucky. Forge tracks both so future calibration is based on judgement quality, not hindsight alone.</p><div className="mt-7 border-t border-white/15 pt-5"><p className="text-xs uppercase tracking-forge text-white/45">Average process quality</p><p className="mt-2 font-serif text-4xl">{avgProcess ?? '—'}</p><p className="mt-1 text-xs text-white/45">from completed decision reviews</p></div></div>
+        <div className="border border-forge-forest-800 bg-forge-forest-950 p-6 text-white md:p-8"><p className="text-xs font-semibold uppercase tracking-forge text-forge-bronze-300">Decision quality</p><h2 className="mt-2 font-serif text-2xl">Separate process from luck.</h2><p className="mt-4 text-sm leading-6 text-white/65">A good decision can produce a bad outcome and a poor decision can get lucky. Forge tracks both so future calibration is based on judgement quality, not hindsight alone.</p><div className="mt-7 border-t border-white/15 pt-5"><p className="text-xs uppercase tracking-forge text-white/45">Average process quality</p><p className="mt-2 font-serif text-4xl">{avgProcess ?? '—'}</p><p className="mt-1 text-xs text-white/45">from completed decision reviews</p></div><a href="/calibration" className="mt-6 inline-block border-b border-forge-bronze-300 pb-1 text-sm font-semibold text-forge-bronze-300">Open full calibration profile</a></div>
       </section>
     </section>
   </main>;
