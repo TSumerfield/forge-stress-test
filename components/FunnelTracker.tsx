@@ -6,7 +6,6 @@ import { supabase } from "../lib/supabaseClient";
 
 const SESSION_KEY = "forge_anonymous_session";
 const ATTRIBUTION_KEY = "forge_validation_attribution";
-const STRESS_PROGRESS_KEY = "forge_stress_progress";
 
 type Attribution = { source?: string; batch?: string; campaign?: string };
 export type FunnelEventName = "page_view" | "stress_test_started" | "stress_test_progress" | "stress_test_completed" | "stress_test_result_viewed" | "stress_test_next_action" | "action_review_viewed" | "action_review_submitted";
@@ -56,24 +55,9 @@ export default function FunnelTracker() {
   useEffect(() => {
     if (pathname !== "/stress-test") return;
     const onClick = (event: MouseEvent) => {
-      const element = (event.target as HTMLElement | null)?.closest("button,a") as HTMLElement | null;
-      if (!element) return;
-      const label = (element.textContent || "").replace(/\s+/g, " ").trim().toUpperCase();
-      if (label.includes("START THE STRESS TEST")) {
-        try { window.sessionStorage.setItem(STRESS_PROGRESS_KEY, "0"); } catch {}
-        void trackFunnelEvent("stress_test_started", { diagnostic: "stress_test" });
-        return;
-      }
-      if (label.includes("NEXT") || label.includes("CONTINUE")) {
-        let stage = 1;
-        try { stage = Math.min(6, Number(window.sessionStorage.getItem(STRESS_PROGRESS_KEY) || "0") + 1); window.sessionStorage.setItem(STRESS_PROGRESS_KEY, String(stage)); } catch {}
-        void trackFunnelEvent("stress_test_progress", { diagnostic: "stress_test", metadata: { stage, approximate_questions_completed: stage * 5 } });
-        return;
-      }
-      if (label.includes("RESTART") || label.includes("RETAKE")) return;
-      if (label.includes("NEXT STEP") || label.includes("EXPLORE") || label.includes("ACTION REVIEW") || label.includes("COMPARE") || label.includes("TOOLS")) {
-        void trackFunnelEvent("stress_test_next_action", { diagnostic: "stress_test", metadata: { label: label.slice(0, 120) } });
-      }
+      const element = (event.target as HTMLElement | null)?.closest("a");
+      if (!element || !element.textContent?.includes("VIEW THE RESEARCH PROTOTYPE")) return;
+      void trackFunnelEvent("stress_test_next_action", { diagnostic: "stress_test", metadata: { label: "VIEW THE RESEARCH PROTOTYPE" } });
     };
     document.addEventListener("click", onClick, true);
     return () => document.removeEventListener("click", onClick, true);
