@@ -8,7 +8,7 @@ const SESSION_KEY = "forge_anonymous_session";
 const ATTRIBUTION_KEY = "forge_validation_attribution";
 
 type Attribution = { source?: string; batch?: string; campaign?: string };
-export type FunnelEventName = "page_view" | "stress_test_started" | "stress_test_progress" | "stress_test_completed" | "stress_test_result_viewed" | "stress_test_next_action" | "action_review_viewed" | "action_review_submitted";
+export type FunnelEventName = "page_view" | "stress_test_started" | "stress_test_progress" | "stress_test_completed" | "stress_test_result_viewed" | "stress_test_next_action" | "action_review_viewed" | "action_review_submitted" | "pulse_started" | "pulse_completed";
 
 function getSessionId() {
   try {
@@ -47,7 +47,7 @@ export default function FunnelTracker() {
   useEffect(() => {
     if (!pathname || pathname.startsWith("/admin") || pathname.startsWith("/dashboard") || pathname.startsWith("/login")) return;
     captureAttribution(new URLSearchParams(searchParams.toString()));
-    const diagnostic = pathname === "/stress-test" ? "stress_test" : pathname === "/readiness-check" ? "readiness_check" : pathname === "/next-step" ? "action_review" : undefined;
+    const diagnostic = pathname === "/stress-test" ? "stress_test" : pathname === "/pulse" ? "pulse_001" : pathname === "/readiness-check" ? "readiness_check" : pathname === "/next-step" ? "action_review" : undefined;
     void trackFunnelEvent("page_view", { diagnostic, metadata: { referrer: document.referrer || null } });
     if (pathname === "/next-step") void trackFunnelEvent("action_review_viewed", { diagnostic: searchParams.get("source") || "direct" });
   }, [pathname, searchParams]);
