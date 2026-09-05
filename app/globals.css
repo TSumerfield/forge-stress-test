@@ -46,40 +46,34 @@ span[aria-hidden="true"]::after { content: ""; position: absolute; right: 0.08re
 .forge-button-primary:hover, .forge-button-secondary:hover { background: transparent; color: var(--forge-bronze); }
 .forge-button:active { opacity: 0.72; }
 
+/* Pulse 001: editorial survey cards. Keeps the research instrument simple while making selection state obvious. */
+form.forge-container fieldset { border-top: 1px solid rgba(185,134,74,.22); padding-top: 1.65rem; }
+form.forge-container fieldset:first-child { border-top: 0; padding-top: 0; }
+form.forge-container fieldset legend { font-family: var(--font-source-serif), Georgia, serif; font-size: clamp(1.35rem,2vw,1.75rem); font-weight: 400; letter-spacing: -.012em; line-height: 1.2; color: var(--forge-forest-deep); margin-bottom: 1rem; }
+form.forge-container fieldset label:has(input[type="radio"]) { position: relative; min-height: 4.4rem; display: flex; align-items: center; padding: 1rem 3.6rem 1rem 1.25rem; border: 1px solid rgba(8,26,22,.18); border-radius: .85rem; background: rgba(255,255,255,.26); font-size: 1rem; line-height: 1.35; transition: border-color 150ms ease, background 150ms ease, color 150ms ease, transform 150ms ease; }
+form.forge-container fieldset label:has(input[type="radio"])::after { content: ""; position: absolute; right: 1.2rem; top: 50%; width: 1.25rem; height: 1.25rem; transform: translateY(-50%); border: 2px solid rgba(8,26,22,.3); border-radius: 999px; background: transparent; }
+form.forge-container fieldset label:has(input[type="radio"]:checked) { border-color: var(--forge-forest-deep); background: var(--forge-forest-deep); color: var(--forge-ivory); }
+form.forge-container fieldset label:has(input[type="radio"]:checked)::after { border: 4px solid var(--forge-ivory); box-shadow: 0 0 0 2px rgba(246,244,238,.35); }
+form.forge-container fieldset label:has(input[type="radio"]):active { transform: scale(.995); }
+form.forge-container input:not([type="radio"]), form.forge-container textarea, form.forge-container select { border-color: rgba(8,26,22,.18) !important; border-radius: .65rem; background: rgba(255,255,255,.24); }
+form.forge-container input:not([type="radio"]):focus, form.forge-container textarea:focus, form.forge-container select:focus { border-color: var(--forge-bronze) !important; box-shadow: 0 0 0 1px var(--forge-bronze); }
+
 @media (max-width: 767px) {
   .forge-container { width: calc(100% - 32px); }
   .forge-section { padding-block: 3.5rem; }
   .forge-display, .forge-heading, p, h1, h2, h3 { overflow-wrap: break-word; word-break: normal; }
-
-  /* Prevent desktop grid rows from retaining intrinsic widths on phones. */
   main, section, article, aside, header, footer, div { min-width: 0; }
   main p, main h1, main h2, main h3, main span { max-width: 100%; }
-
-  /* Association stack: more deliberate mobile rhythm and no edge clipping. */
-  .forge-light .forge-section .border-t.forge-border > div.grid {
-    grid-template-columns: 1fr !important;
-    gap: 0.65rem !important;
-    padding: 1.6rem 0 !important;
-  }
-  .forge-light .forge-section .border-t.forge-border > div.grid > p {
-    font-size: 0.98rem !important;
-    line-height: 1.65 !important;
-    padding-right: 0 !important;
-  }
-
+  .forge-light .forge-section .border-t.forge-border > div.grid { grid-template-columns: 1fr !important; gap: 0.65rem !important; padding: 1.6rem 0 !important; }
+  .forge-light .forge-section .border-t.forge-border > div.grid > p { font-size: 0.98rem !important; line-height: 1.65 !important; padding-right: 0 !important; }
   [class~="text-[13vw]"] { font-size: clamp(3.15rem, 13.2vw, 4.75rem) !important; line-height: 0.88 !important; letter-spacing: -0.055em !important; }
   [class~="text-[28vw]"] { font-size: clamp(6.5rem, 27vw, 9rem) !important; }
-
-  main.min-h-screen input[type="number"], main.min-h-screen input[type="text"], main.min-h-screen input[type="email"], main.min-h-screen select {
-    min-height: 3.5rem; height: 3.5rem; padding-top: 0.75rem !important; padding-bottom: 0.75rem !important; line-height: 1.25; border-radius: 0; appearance: none; -webkit-appearance: none;
-  }
-  main.min-h-screen textarea { border-radius: 0; appearance: none; -webkit-appearance: none; }
+  main.min-h-screen input[type="number"], main.min-h-screen input[type="text"], main.min-h-screen input[type="email"], main.min-h-screen select { min-height: 3.5rem; height: 3.5rem; padding-top: 0.75rem !important; padding-bottom: 0.75rem !important; line-height: 1.25; appearance: none; -webkit-appearance: none; }
+  main.min-h-screen textarea { appearance: none; -webkit-appearance: none; }
   main.min-h-screen button { touch-action: manipulation; }
+  form.forge-container fieldset legend { font-size: 1.42rem; }
+  form.forge-container fieldset label:has(input[type="radio"]) { min-height: 4rem; border-radius: .7rem; }
 }
 
 @media (min-width: 768px) { .forge-container { width: min(100% - 64px, 1280px); } }
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
-}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; } }
