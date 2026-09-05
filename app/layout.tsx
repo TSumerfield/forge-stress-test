@@ -8,8 +8,8 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "sw
 const sourceSerif = Source_Serif_4({ subsets: ["latin"], variable: "--font-source-serif", display: "swap" });
 
 export const metadata: Metadata = {
-  title: { default: "Forge | Independent School Sport Research", template: "%s | Forge" },
-  description: "Forge is an independent research project examining operational resilience and the systems behind sport in international schools.",
+  title: { default: "Forge | Sport Department Stress Test", template: "%s | Forge" },
+  description: "A free, confidential diagnostic for international-school sports leaders. See where your department is strong, where hidden fragility is building and what deserves attention first.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
