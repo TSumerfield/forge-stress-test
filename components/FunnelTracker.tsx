@@ -27,9 +27,25 @@ export function getFunnelAttribution(): Attribution {
   try { return JSON.parse(window.localStorage.getItem(ATTRIBUTION_KEY) || "{}"); } catch { return {}; }
 }
 
+function inferSourceFromReferrer(referrer: string): string | undefined {
+  if (!referrer) return undefined;
+  try {
+    const hostname = new URL(referrer).hostname.toLowerCase();
+    if (hostname === "linkedin.com" || hostname.endsWith(".linkedin.com") || hostname === "lnkd.in") return "linkedin";
+    if (hostname === "google.com" || hostname.endsWith(".google.com")) return "google";
+    if (hostname === "chatgpt.com" || hostname.endsWith(".chatgpt.com")) return "chatgpt";
+    if (hostname === "with-forge.com" || hostname === "www.with-forge.com") return undefined;
+    return hostname.replace(/^www\./, "") || undefined;
+  } catch {
+    if (referrer.startsWith("android-app://com.linkedin")) return "linkedin";
+    return undefined;
+  }
+}
+
 function captureAttribution(searchParams: URLSearchParams) {
+  const explicitSource = searchParams.get("source") || searchParams.get("utm_source") || undefined;
   const incoming: Attribution = {
-    source: searchParams.get("source") || searchParams.get("utm_source") || undefined,
+    source: explicitSource || inferSourceFromReferrer(document.referrer),
     batch: searchParams.get("batch") || undefined,
     campaign: searchParams.get("campaign") || searchParams.get("utm_campaign") || undefined,
     prospect: searchParams.get("prospect") || undefined,
@@ -54,9 +70,9 @@ export default function FunnelTracker() {
 
   useEffect(() => {
     if (!pathname || pathname.startsWith("/admin") || pathname.startsWith("/dashboard") || pathname.startsWith("/login")) return;
-    captureAttribution(new URLSearchParams(searchParams.toString()));
+    const attribution = captureAttribution(new URLSearchParams(searchParams.toString()));
     const diagnostic = pathname === "/stress-test" ? "stress_test" : pathname === "/pulse" ? "pulse_001" : pathname === "/readiness-check" ? "readiness_check" : pathname === "/next-step" ? "action_review" : undefined;
-    void trackFunnelEvent("page_view", { diagnostic, metadata: { referrer: document.referrer || null } });
+    void trackFunnelEvent("page_view", { diagnostic, metadata: { referrer: document.referrer || null, attributed_source: attribution.source || null } });
     if (pathname === "/next-step") void trackFunnelEvent("action_review_viewed", { diagnostic: searchParams.get("source") || "direct" });
   }, [pathname, searchParams]);
 
@@ -69,12 +85,13 @@ export default function FunnelTracker() {
         const readiness = pathname === "/readiness-check";
         void trackFunnelEvent(readiness ? "readiness_check_next_action" : "stress_test_next_action", { diagnostic: readiness ? "readiness_check" : "stress_test", metadata: { label: "VIEW THE RESEARCH PROTOTYPE" } });
       }
-      if (pathname === "/readiness-check") {
-        const button = element?.closest("button");
-        if (button?.textContent?.includes("CHECK YOUR READINESS")) {
-          try { window.sessionStorage.setItem(READINESS_STARTED_KEY, "1"); } catch {}
-          void trackFunnelEvent("readiness_check_started", { diagnostic: "readiness_check", metadata: { total_questions: 18 } });
-        }
+      const button = element?.closest("button");
+      if (pathname === "/stress-test" && button?.textContent?.includes("START THE STRESS TEST")) {
+        void trackFunnelEvent("stress_test_started", { diagnostic: "stress_test", metadata: { total_questions: 30, trigger: "start_button" } });
+      }
+      if (pathname === "/readiness-check" && button?.textContent?.includes("CHECK YOUR READINESS")) {
+        try { window.sessionStorage.setItem(READINESS_STARTED_KEY, "1"); } catch {}
+        void trackFunnelEvent("readiness_check_started", { diagnostic: "readiness_check", metadata: { total_questions: 18 } });
       }
     };
     document.addEventListener("click", onClick, true);
