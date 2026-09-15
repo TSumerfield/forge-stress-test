@@ -24,7 +24,7 @@ function getSessionId() {
 
 export function getFunnelAttribution(): Attribution {
   if (typeof window === "undefined") return {};
-  try { return JSON.parse(window.localStorage.getItem(ATTRIBUTION_KEY) || "{}"); } catch { return {}; }
+  try { return JSON.parse(window.sessionStorage.getItem(ATTRIBUTION_KEY) || "{}"); } catch { return {}; }
 }
 
 function inferSourceFromReferrer(referrer: string): string | undefined {
@@ -52,7 +52,7 @@ function captureAttribution(searchParams: URLSearchParams) {
   };
   if (!incoming.source && !incoming.batch && !incoming.campaign && !incoming.prospect) return getFunnelAttribution();
   const merged = { ...getFunnelAttribution(), ...incoming };
-  try { window.localStorage.setItem(ATTRIBUTION_KEY, JSON.stringify(merged)); } catch {}
+  try { window.sessionStorage.setItem(ATTRIBUTION_KEY, JSON.stringify(merged)); } catch {}
   return merged;
 }
 
@@ -86,9 +86,6 @@ export default function FunnelTracker() {
         void trackFunnelEvent(readiness ? "readiness_check_next_action" : "stress_test_next_action", { diagnostic: readiness ? "readiness_check" : "stress_test", metadata: { label: "VIEW THE RESEARCH PROTOTYPE" } });
       }
       const button = element?.closest("button");
-      if (pathname === "/stress-test" && button?.textContent?.includes("START THE STRESS TEST")) {
-        void trackFunnelEvent("stress_test_started", { diagnostic: "stress_test", metadata: { total_questions: 30, trigger: "start_button" } });
-      }
       if (pathname === "/readiness-check" && button?.textContent?.includes("CHECK YOUR READINESS")) {
         try { window.sessionStorage.setItem(READINESS_STARTED_KEY, "1"); } catch {}
         void trackFunnelEvent("readiness_check_started", { diagnostic: "readiness_check", metadata: { total_questions: 18 } });
